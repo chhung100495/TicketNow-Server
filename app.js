@@ -1,0 +1,17 @@
+var movieShowingsCtrl = require('./controllers/movieShowingsCtrl');
+var express = require('express'),
+    morgan = require('morgan'),
+    bodyParser = require('body-parser'),
+    cors = require('cors');
+
+var app = express();
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cors());
+
+var port = process.env.port || 4000;
+app.listen(port, () => {
+    console.log(`API running on port ${port}`);
+})
+
+app.use('/movieShowings', movieShowingsCtrl);
