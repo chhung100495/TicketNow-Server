@@ -13,9 +13,13 @@
 
 
 -- Dumping database structure for booking_tickets
-DROP DATABASE IF EXISTS `booking_tickets`;
-CREATE DATABASE IF NOT EXISTS `booking_tickets` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `booking_tickets`;
+-- DROP DATABASE IF EXISTS `booking_tickets`;
+-- CREATE DATABASE IF NOT EXISTS `booking_tickets` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+-- USE `booking_tickets`;
+
+DROP DATABASE IF EXISTS `heroku_9795ac331e55444`;
+CREATE DATABASE IF NOT EXISTS `heroku_9795ac331e55444` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `heroku_9795ac331e55444`;
 
 -- Dumping structure for table booking_tickets.accounts
 DROP TABLE IF EXISTS `accounts`;
