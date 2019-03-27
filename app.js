@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 var host = '0.0.0.0';
-var port = process.env.port || 4000;
+var port = process.env.PORT || 4000;
 app.listen(port, host, () => {
     console.log(`API running on port ${port}`);
 })
