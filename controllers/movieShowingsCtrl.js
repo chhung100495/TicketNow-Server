@@ -6,7 +6,8 @@ var router = express.Router();
 router.get('/', (req, res) => {
     movieShowingsRepo.loadAll()
         .then(rows => {
-            res.json(rows);
+            var results = {result: Object.entries(rows)};
+            res.json(results);
         })
         .catch(err => {
             console.log(err);
@@ -20,7 +21,8 @@ router.get('/:id', (req, res) => {
     movieShowingsRepo.loadSingle(id)
         .then(rows => {
             if (rows.length > 0) {
-                res.json(rows[0]);
+                var results = {result: Object.entries(rows)};
+                res.json(results);
             } else {
                 res.statusCode = 204;
                 res.end('No data');
