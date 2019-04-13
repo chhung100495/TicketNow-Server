@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `auditoriums` (
 -- Dumping data for table booking_tickets.auditoriums: ~2 rows (approximately)
 /*!40000 ALTER TABLE `auditoriums` DISABLE KEYS */;
 INSERT INTO `auditoriums` (`id`, `cinema_id`, `location_id`) VALUES
-	(1, 1, 3),
-	(2, 1, 4);
+	(1, 1, 4),
+	(2, 1, 5);
 /*!40000 ALTER TABLE `auditoriums` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.blocks
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `cinemas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.cinemas: ~1 rows (approximately)
+-- Dumping data for table booking_tickets.cinemas: ~0 rows (approximately)
 /*!40000 ALTER TABLE `cinemas` DISABLE KEYS */;
 INSERT INTO `cinemas` (`id`, `name`, `address`, `phone`) VALUES
 	(1, 'CGV', 'Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái, P.14, Q.10, TPHCM.', '19006017');
@@ -211,13 +211,14 @@ CREATE TABLE IF NOT EXISTS `event_showings` (
   KEY `FK_EVENT_SHOWINGS_VENUES` (`venue_id`),
   CONSTRAINT `FK_EVENT_SHOWINGS_EVENTS` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_EVENT_SHOWINGS_VENUES` FOREIGN KEY (`venue_id`) REFERENCES `venues` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.event_showings: ~2 rows (approximately)
 /*!40000 ALTER TABLE `event_showings` DISABLE KEYS */;
 INSERT INTO `event_showings` (`id`, `event_id`, `venue_id`, `price`, `status`, `release_date`) VALUES
 	(1, 1, 1, 100000, 0, '2018-06-13 19:00:00'),
-	(2, 2, 2, 150000, 0, '2018-12-06 19:30:00');
+	(2, 2, 2, 150000, 0, '2018-12-06 19:30:00'),
+	(3, 3, 3, 150000, 0, '2019-02-16 16:00:00');
 /*!40000 ALTER TABLE `event_showings` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.locations
@@ -228,15 +229,16 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `total_seats` int(10) unsigned NOT NULL,
   `type` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.locations: ~4 rows (approximately)
+-- Dumping data for table booking_tickets.locations: ~5 rows (approximately)
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
 INSERT INTO `locations` (`id`, `name`, `total_seats`, `type`) VALUES
 	(1, 'SVĐ Thống Nhất', 15000, 1),
 	(2, 'Sân vận động Quốc gia Mỹ Đình', 40192, 1),
-	(3, 'Phòng A-01', 100, 0),
-	(4, 'Phòng A-02', 100, 0);
+	(3, 'Sân vận động Hàng Đẫy', 22500, 1),
+	(4, 'Phòng A-01', 100, 0),
+	(5, 'Phòng A-02', 100, 0);
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.movies
@@ -281,13 +283,14 @@ CREATE TABLE IF NOT EXISTS `movie_showings` (
   KEY `FK_MOVIE_SHOWINGS_AUDITORIUMS` (`auditorium_id`),
   CONSTRAINT `FK_MOVIE_SHOWINGS_AUDITORIUMS` FOREIGN KEY (`auditorium_id`) REFERENCES `auditoriums` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_MOVIE_SHOWINGS_MOVIES` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.movie_showings: ~2 rows (approximately)
+-- Dumping data for table booking_tickets.movie_showings: ~3 rows (approximately)
 /*!40000 ALTER TABLE `movie_showings` DISABLE KEYS */;
 INSERT INTO `movie_showings` (`id`, `movie_id`, `auditorium_id`, `price`, `status`, `release_date`) VALUES
 	(1, 1, 1, 88000, 0, '2019-03-08'),
-	(2, 2, 2, 88000, 0, '2019-03-15');
+	(2, 2, 2, 88000, 0, '2019-03-15'),
+	(3, 3, 2, 88000, 0, '2019-03-08');
 /*!40000 ALTER TABLE `movie_showings` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.seats
@@ -319,13 +322,14 @@ CREATE TABLE IF NOT EXISTS `venues` (
   PRIMARY KEY (`id`),
   KEY `FK_VENUES_LOCATIONS` (`location_id`),
   CONSTRAINT `FK_VENUES_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.venues: ~2 rows (approximately)
 /*!40000 ALTER TABLE `venues` DISABLE KEYS */;
 INSERT INTO `venues` (`id`, `address`, `location_id`) VALUES
 	(1, '138 Đào Duy Từ, Phường 6, Quận 10, Hồ Chí Minh', 1),
-	(2, 'Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội', 2);
+	(2, 'Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội', 2),
+	(3, 'Sân vận động Hàng Đẫy, Số 9 Trịnh Hoài Đức, Cát Linh, Đống Đa, Hà Nội', 3);
 /*!40000 ALTER TABLE `venues` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
