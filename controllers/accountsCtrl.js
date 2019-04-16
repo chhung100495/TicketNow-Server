@@ -48,23 +48,24 @@ router.post('/login', (req, res) => {
         })
 });
 
-router.get('/:id', (req, res) => {
-    var id = req.params.id;
-    accountsRepo.loadSingle(id)
-        .then(rows => {
-            if (rows.length > 0) {
-                var results = {result: rows};
-                res.json(results);
+router.post('/changePassword', (req, res) => {
+    accountsRepo.changePassword(req.body)
+        .then(value => {
+            if (value.affectedRows == 1) {
+                res.json({
+                    msg: "Thay đổi mật khẩu thành công"
+                })
             } else {
-                res.statusCode = 204;
-                res.end('No data');
+                res.statusCode = 400;
+                res.end('Thay đổi mật khẩu thất bại');
             }
+
         })
         .catch(err => {
             console.log(err);
             res.statusCode = 500;
             res.end('View error log on server console');
         })
-})
+});
 
 module.exports = router;

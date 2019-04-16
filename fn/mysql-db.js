@@ -50,3 +50,45 @@ exports.write = function(sql) {
         });
     });
 }
+
+exports.executeTransaction = function(queries) {
+    return new Promise((resolve, reject) => {
+        var connection = mysql.createConnection(config);
+
+        connection.connect();
+
+        /* Begin transaction */
+        connection.beginTransaction(function(err) {
+            if (err) { reject(err); }
+
+            connection.query(queries[0], function(err, result) {
+                if (err) {
+                    connection.rollback(function() {
+                        reject(err);
+                    });
+                }
+
+                var id = result.insertId;
+
+                connection.query(queries[1], id, function(err, result) {
+                    if (err) {
+                        connection.rollback(function() {
+                            reject(err);
+                        });
+                    }
+
+                    connection.commit(function(err) {
+                        if (err) {
+                            connection.rollback(function() {
+                                reject(err);
+                            });
+                        }
+                        console.log('Transaction Complete');
+                        connection.end();
+                    });
+                });
+            });
+        });
+        /* End transaction */
+    });
+}
