@@ -33,3 +33,20 @@ exports.load = function(sql) {
         });
     });
 }
+
+exports.write = function(sql) {
+    return new Promise((resolve, reject) => {
+        var connection = mysql.createConnection(config);
+
+        connection.connect();
+
+        connection.query(sql, (error, value) => {
+            if (error)
+                reject(error);
+            else
+                resolve(value);
+
+            connection.end();
+        });
+    });
+}

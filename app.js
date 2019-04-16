@@ -1,4 +1,6 @@
 var movieShowingsCtrl = require('./controllers/movieShowingsCtrl');
+var accountsCtrl = require('./controllers/accountsCtrl');
+
 var express = require('express'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
@@ -16,3 +18,4 @@ app.listen(port, host, () => {
 })
 
 app.use('/movieShowings', movieShowingsCtrl);
+app.use('/accounts', accountsCtrl);
