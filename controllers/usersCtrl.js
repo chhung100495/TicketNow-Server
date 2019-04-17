@@ -1,19 +1,19 @@
 var express = require('express');
-var customersRepo = require('../repositories/customersRepo');
+var usersRepo = require('../repositories/usersRepo');
 
 var router = express.Router();
 
 router.post('/add', (req, res) => {
-    customersRepo.add(req.body)
+    usersRepo.add(req.body)
         .then(value => {
             if (value.affectedRows == 1) {
                 console.log(value);
                 res.json({
-                    msg: "Thêm thông tin khách hàng thành công"
+                    msg: "Thêm thông tin người dùng thành công"
                 })
             } else {
                 res.statusCode = 400;
-                res.end('Thêm thông tin khách hàng thất bại');
+                res.end('Thêm thông tin người dùng thất bại');
             }
 
         })
@@ -25,15 +25,15 @@ router.post('/add', (req, res) => {
 });
 
 router.post('/update', (req, res) => {
-    customersRepo.update(req.body)
+    usersRepo.update(req.body)
         .then(value => {
             if (value.affectedRows == 1) {
                 res.json({
-                    msg: "Cập nhật thông tin khách hàng thành công"
+                    msg: "Cập nhật thông tin người dùng thành công"
                 })
             } else {
                 res.statusCode = 400;
-                res.end('Cập nhật thông tin khách hàng thất bại');
+                res.end('Cập nhật thông tin người dùng thất bại');
             }
 
         })
@@ -46,14 +46,14 @@ router.post('/update', (req, res) => {
 
 router.get('/:id', (req, res) => {
     var id = req.params.id;
-    customersRepo.loadSingle(id)
+    usersRepo.loadSingle(id)
         .then(rows => {
             if (rows.length > 0) {
                 var results = {result: rows};
                 res.json(results);
             } else {
                 res.statusCode = 204;
-                res.end('No data');
+                res.end('Không có dữ liệu');
             }
         })
         .catch(err => {

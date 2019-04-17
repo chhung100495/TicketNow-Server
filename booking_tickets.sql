@@ -27,14 +27,14 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `FK_ACCOUNTS_CUSTOMERS` FOREIGN KEY (`id`) REFERENCES `customers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_ACCOUNTS_USERS` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.accounts: ~5 rows (approximately)
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` (`id`, `username`, `password`, `customer_id`) VALUES
+INSERT INTO `accounts` (`id`, `username`, `password`, `user_id`) VALUES
 	(1, 'chhung', 'e10adc3949ba59abbe56e057f20f883e', 1),
 	(2, 'nnhuy', 'e10adc3949ba59abbe56e057f20f883e', 2),
 	(3, 'dnmluan', 'e10adc3949ba59abbe56e057f20f883e', 3),
@@ -169,30 +169,6 @@ INSERT INTO `combos` (`id`, `name`, `price`, `img_url`, `description`, `cinema_i
 	(5, 'BÁNH WAFFLE - GIÒN THƠM KHÓ CƯỠNG', 39000, 'https://drive.google.com/uc?id=1_WXSm8eFwIIviLCPGT2R2jzc21BKa6e2', 'Bánh nướng Waffle giòn thơm đã có mặt tại CGV .', 1),
 	(6, 'PIZZA NÓNG HỔI, VỪA THỔI VỪA ĂN', 115000, 'https://drive.google.com/uc?id=1DVo1RDZKntGwyVjYbH6tegjhMv6O6bHc', 'Sản phẩm Pizza mới được làm thủ công hoàn toàn theo phong cách Ý. Đế bánh được làm từ bột mì cao cấp để đảm bảo được chất lượng và hương vị tốt nhất. Các thành phần phủ bánh được chọn lọc kỹ lưỡng giữ nguyên hương vị tươi mới cho sản phẩm. Cà chua và phô mai được nhập khẩu từ Ý, giữ đúng nguyên bản hương vị truyền thống.', 1);
 /*!40000 ALTER TABLE `combos` ENABLE KEYS */;
-
--- Dumping structure for table booking_tickets.customers
-DROP TABLE IF EXISTS `customers`;
-CREATE TABLE IF NOT EXISTS `customers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gender` int(10) unsigned NOT NULL DEFAULT '0',
-  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `credit_card_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration_date` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table booking_tickets.customers: ~5 rows (approximately)
-/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` (`id`, `full_name`, `gender`, `email`, `phone`, `address`, `credit_card_number`, `expiration_date`) VALUES
-	(1, 'Châu Hải Hùng', 1, 'haihung100495@gmail.com', '0915512337', 'Tp. HCM', '0', '0000-00-00'),
-	(2, 'Ngô Nhật Huy', 1, 'nhathuy.carvin@gmail.com', '01297653154', 'Tp. HCM', '0', '0000-00-00'),
-	(3, 'Đỗ Nguyễn Minh Luân', 1, 'donguyenminhluan96@gmail.com', '0937817912', 'Tp. HCM', '0', '0000-00-00'),
-	(4, 'Mai Thanh Tân', 1, 'thanhtan9876@gmail.com', '0973869608', 'Tp. HCM', '0', '0000-00-00'),
-	(5, 'Phạm Minh Trung', 1, 'pmtrung@hcmus.edu.vn', '0909764990', 'Tp. HCM', '0', '0000-00-00');
-/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.events
 DROP TABLE IF EXISTS `events`;
@@ -333,6 +309,31 @@ CREATE TABLE IF NOT EXISTS `seats` (
 -- Dumping data for table booking_tickets.seats: ~0 rows (approximately)
 /*!40000 ALTER TABLE `seats` DISABLE KEYS */;
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
+
+-- Dumping structure for table booking_tickets.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` int(10) unsigned NOT NULL DEFAULT '0',
+  `birthday` date NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `credit_card_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table booking_tickets.users: ~5 rows (approximately)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `full_name`, `gender`, `birthday`, `email`, `phone`, `address`, `credit_card_number`, `expiration_date`) VALUES
+	(1, 'Châu Hải Hùng', 1, '1995-04-10', 'haihung100495@gmail.com', '0915512337', 'Tp. HCM', '0', '0000-00-00'),
+	(2, 'Ngô Nhật Huy', 1, '1995-08-30', 'nhathuy.carvin@gmail.com', '01297653154', 'Tp. HCM', '0', '0000-00-00'),
+	(3, 'Đỗ Nguyễn Minh Luân', 1, '1996-12-12', 'donguyenminhluan96@gmail.com', '0937817912', 'Tp. HCM', '0', '0000-00-00'),
+	(4, 'Mai Thanh Tân', 1, '1993-08-28', 'thanhtan9876@gmail.com', '0973869608', 'Tp. HCM', '0', '0000-00-00'),
+	(5, 'Phạm Minh Trung', 1, '1989-07-21', 'pmtrung@hcmus.edu.vn', '0909764990', 'Tp. HCM', '0', '0000-00-00');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.venues
 DROP TABLE IF EXISTS `venues`;
