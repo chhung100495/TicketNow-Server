@@ -27,10 +27,10 @@ exports.loadSingle = (id) => {
 }
 
 exports.changePassword = (accountEntity) => {
-    var md5_opwd = md5(accountEntity.old_password);
+    var md5_cpwd = md5(accountEntity.current_password);
     var md5_npwd = md5(accountEntity.new_password);
     var sql = `UPDATE accounts
         SET password = '${md5_npwd}'
-        WHERE id = '${accountEntity.id}' AND password = '${md5_opwd}'`
+        WHERE id = '${accountEntity.id}' AND password = '${md5_cpwd}'`
     return db.load(sql);
 }
