@@ -29,6 +29,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+    console.log(req.body);
     accountsRepo.validateCredentials(req.body)
         .then(rows => {
             if (rows.length > 0) {

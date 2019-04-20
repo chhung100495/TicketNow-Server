@@ -29,8 +29,9 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `FK_ACCOUNTS_USERS` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `FK_ACCOUNTS_USERS` (`user_id`),
+  CONSTRAINT `FK_ACCOUNTS_USERS` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.accounts: ~5 rows (approximately)
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
@@ -39,7 +40,8 @@ INSERT INTO `accounts` (`id`, `username`, `password`, `user_id`) VALUES
 	(2, 'nnhuy', 'e10adc3949ba59abbe56e057f20f883e', 2),
 	(3, 'dnmluan', 'e10adc3949ba59abbe56e057f20f883e', 3),
 	(4, 'mttan', 'e10adc3949ba59abbe56e057f20f883e', 4),
-	(5, 'pmtrung', 'e10adc3949ba59abbe56e057f20f883e', 5);
+	(5, 'pmtrung', 'e10adc3949ba59abbe56e057f20f883e', 5),
+	(6, 'tester', 'e10adc3949ba59abbe56e057f20f883e', 6);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.auditoriums
@@ -323,16 +325,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `credit_card_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration_date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.users: ~5 rows (approximately)
+-- Dumping data for table booking_tickets.users: ~6 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `full_name`, `gender`, `birthday`, `email`, `phone`, `address`, `credit_card_number`, `expiration_date`) VALUES
-	(1, 'Châu Hải Hùng', 1, '1995-04-10', 'haihung100495@gmail.com', '0915512337', 'Tp. HCM', '0', '0000-00-00'),
-	(2, 'Ngô Nhật Huy', 1, '1995-08-30', 'nhathuy.carvin@gmail.com', '01297653154', 'Tp. HCM', '0', '0000-00-00'),
-	(3, 'Đỗ Nguyễn Minh Luân', 1, '1996-12-12', 'donguyenminhluan96@gmail.com', '0937817912', 'Tp. HCM', '0', '0000-00-00'),
-	(4, 'Mai Thanh Tân', 1, '1993-08-28', 'thanhtan9876@gmail.com', '0973869608', 'Tp. HCM', '0', '0000-00-00'),
-	(5, 'Phạm Minh Trung', 1, '1989-07-21', 'pmtrung@hcmus.edu.vn', '0909764990', 'Tp. HCM', '0', '0000-00-00');
+	(1, 'Châu Hải Hùng', 1, '1995-04-10', 'haihung100495@gmail.com', '0915512337', 'Tp. HCM', '', '0000-00-00'),
+	(2, 'Ngô Nhật Huy', 1, '1995-08-30', 'nhathuy.carvin@gmail.com', '01297653154', 'Tp. HCM', '', '0000-00-00'),
+	(3, 'Đỗ Nguyễn Minh Luân', 1, '1996-12-12', 'donguyenminhluan96@gmail.com', '0937817912', 'Tp. HCM', '', '0000-00-00'),
+	(4, 'Mai Thanh Tân', 1, '1993-08-28', 'thanhtan9876@gmail.com', '0973869608', 'Tp. HCM', '', '0000-00-00'),
+	(5, 'Phạm Minh Trung', 1, '1989-07-21', 'pmtrung@hcmus.edu.vn', '0909764990', 'Tp. HCM', '', '0000-00-00'),
+	(6, 'Tester', 1, '2000-01-01', 'tester@gmail.com', '19001560', 'Tp. HCM', '', '0000-00-00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.venues
