@@ -8,7 +8,7 @@ exports.checkUsernameAvailability = (accountEntity) => {
 
 exports.validateCredentials = (accountEntity) => {
     var md5_pwd = md5(accountEntity.password);
-    var sql = `SELECT id, username, user_id FROM accounts WHERE username = '${accountEntity.username}' AND password = '${md5_pwd}'`;
+    var sql = `SELECT acc.id, acc.username, acc.user_id, usr.full_name, usr.gender, usr.birthday, usr.email, usr.phone, usr.address FROM accounts as acc INNER JOIN users as usr ON acc.user_id = usr.id WHERE acc.username = '${accountEntity.username}' AND acc.password = '${md5_pwd}'`;
     return db.load(sql);
 }
 

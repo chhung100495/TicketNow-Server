@@ -29,14 +29,11 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    console.log(req.body);
     accountsRepo.validateCredentials(req.body)
         .then(rows => {
             if (rows.length > 0) {
-                accountEntity = rows[0];
-                res.json({
-                    msg: "Đăng nhập thành công"
-                })
+                result = {result: rows[0]};
+                res.json(result);
             } else {
                 res.statusCode = 401;
                 res.end('Sai thông tin tên đăng nhập hoặc mật khẩu');
