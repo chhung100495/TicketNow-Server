@@ -57,6 +57,8 @@ exports.executeTransaction = function(queries) {
 
         connection.connect();
 
+        var results = [];
+
         /* Begin transaction */
         connection.beginTransaction(function(err) {
             if (err) { reject(err); }
@@ -68,6 +70,8 @@ exports.executeTransaction = function(queries) {
                     });
                 }
 
+                results = results.concat(result);
+
                 var id = result.insertId;
 
                 connection.query(queries[1], id, function(err, result) {
@@ -77,12 +81,15 @@ exports.executeTransaction = function(queries) {
                         });
                     }
 
+                    results = results.concat(result);
+
                     connection.commit(function(err) {
                         if (err) {
                             connection.rollback(function() {
                                 reject(err);
                             });
                         }
+                        resolve(results);
                         console.log('Transaction Complete');
                         connection.end();
                     });
