@@ -15,7 +15,6 @@ router.post('/register', (req, res) => {
                         console.log(value);
                         res.statusCode = 201;
                         res.json({
-                            success: true,
                             msg: "Đăng ký thành công."
                         });
                     })
@@ -32,8 +31,22 @@ router.post('/login', (req, res) => {
     accountsRepo.validateCredentials(req.body)
         .then(rows => {
             if (rows.length > 0) {
-                result = {result: rows[0]};
-                res.json(result);
+                results = {
+                    result: [{
+                        "id": rows[0].id,
+                        "username": rows[0].username,
+                        user: {
+                            "id": rows[0].user_id,
+                            "full_name": rows[0].full_name,
+                            "gender": rows[0].gender,
+                            "birthday": rows[0].birthday,
+                            "email": rows[0].email,
+                            "phone": rows[0].phone,
+                            "address": rows[0].address
+                        }
+                    }]
+                };
+                res.json(results);
             } else {
                 res.statusCode = 401;
                 res.end('Sai thông tin tên đăng nhập hoặc mật khẩu');
