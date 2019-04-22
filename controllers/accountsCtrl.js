@@ -8,15 +8,17 @@ router.post('/register', (req, res) => {
         .then(rows => {
             if (rows.length > 0) {
                 res.statusCode = 409;
-                res.end('Tên đăng nhập đã tồn tại.');
+                res.end('Tên đăng nhập đã tồn tại');
             } else {
                 return accountsRepo.add(req.body)
-                    .then(value => {
-                        console.log(value);
-                        res.statusCode = 201;
-                        res.json({
-                            msg: "Đăng ký thành công."
-                        });
+                    .then(values => {
+                        console.log(values);
+                        if (values[0].affectedRows != 0 && values[1].affectedRows != 0) {
+                            res.statusCode = 201;
+                            res.json({
+                                id: values[1].insertId
+                            });
+                        }
                     })
             }
         })

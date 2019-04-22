@@ -2,7 +2,7 @@ var db = require('../fn/mysql-db');
 
 exports.loadAll = function() {
     var sql = `SELECT ms. auditorium_id as auditoriumID, ms.price, ms.status, ms.release_date as releaseDate,
-        m.id, m.name, m.img_url as imgURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre,
+        m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre,
         c.name as cinemas
         FROM movie_showings as ms
         INNER JOIN movies as m ON ms.movie_id = m.id
@@ -13,7 +13,7 @@ exports.loadAll = function() {
 
 exports.loadSingle = function(id) {
     var sql = `SELECT ms. auditorium_id as auditoriumID, ms.price, ms.status, ms.release_date as releaseDate,
-        m.id, m.name, m.img_url as imgURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre,
+        m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre,
         c.name as cinemas
         FROM movie_showings as ms
         INNER JOIN movies as m ON ms.movie_id = m.id
