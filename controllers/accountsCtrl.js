@@ -16,7 +16,7 @@ router.post('/register', (req, res) => {
                         if (values[0].affectedRows != 0 && values[1].affectedRows != 0) {
                             res.statusCode = 201;
                             res.json({
-                                id: values[1].insertId
+                                result: [{id: values[1].insertId}]
                             });
                         }
                     })
