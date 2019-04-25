@@ -39,3 +39,15 @@ exports.loadSingle = function(id) {
         WHERE ms.id = '${id}'`;
     return db.load(sql);
 }
+
+exports.loadByDay = function(movieID, date) {
+    var sql = `SELECT m.name as movieName, c.name as cinemaName, c.id as cinemaID, c.address as address, l.name as location, l.total_seats as totalSeats, ms.price, ms.time
+        FROM movies as m
+        INNER JOIN movie_showings as ms ON ms.movie_id = m.id
+        INNER JOIN auditoriums as a ON ms.auditorium_id = a.id
+        INNER JOIN cinemas as c ON a.cinema_id = c.id
+        INNER JOIN locations as l ON l.id = a.location_id
+        WHERE ms.movie_id = '${movieID}' AND ms.release_date = '${date}'
+        ORDER BY c.id ASC, ms.time ASC`;
+    return db.load(sql);
+}
