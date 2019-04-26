@@ -1,6 +1,9 @@
 var moviesCtrl = require('./controllers/moviesCtrl');
 var accountsCtrl = require('./controllers/accountsCtrl');
 var usersCtrl = require('./controllers/usersCtrl');
+var bookingsCtrl = require('./controllers/bookingsCtrl');
+var bookedSeatsCtrl = require('./controllers/bookedSeatsCtrl');
+var bookedCombosCtrl = require('./controllers/bookedCombosCtrl');
 
 var express = require('express'),
     morgan = require('morgan'),
@@ -21,3 +24,6 @@ app.listen(port, host, () => {
 app.use('/movies', moviesCtrl);
 app.use('/accounts', accountsCtrl);
 app.use('/users', usersCtrl);
+app.use('/bookings', bookingsCtrl);
+app.use('/bookedSeats', bookedSeatsCtrl);
+app.use('/bookedCombos', bookedCombosCtrl);

@@ -41,7 +41,7 @@ exports.loadSingle = function(id) {
 }
 
 exports.loadByDay = function(movieID, date) {
-    var sql = `SELECT m.name as movieName, c.name as cinemaName, c.id as cinemaID, c.address as address, l.name as location, l.total_seats as totalSeats, ms.price, ms.time
+    var sql = `SELECT m.name as movieName, c.name as cinemaName, c.icon_url as iconURL, c.id as cinemaID, c.address as address, l.name as location, l.total_seats as totalSeats, ms.price, ms.time
         FROM movies as m
         INNER JOIN movie_showings as ms ON ms.movie_id = m.id
         INNER JOIN auditoriums as a ON ms.auditorium_id = a.id

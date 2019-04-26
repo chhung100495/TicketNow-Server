@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `auditoriums` (
   KEY `FK_AUDITORIUMS_LOCATIONS` (`location_id`),
   CONSTRAINT `FK_AUDITORIUMS_CINEMAS` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_AUDITORIUMS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.auditoriums: ~18 rows (approximately)
 /*!40000 ALTER TABLE `auditoriums` DISABLE KEYS */;
@@ -72,12 +72,12 @@ INSERT INTO `auditoriums` (`id`, `cinema_id`, `location_id`) VALUES
 	(10, 4, 13),
 	(11, 4, 14),
 	(12, 4, 15),
-	(14, 5, 16),
-	(15, 5, 17),
-	(16, 5, 18),
-	(17, 6, 19),
-	(18, 6, 20),
-	(19, 6, 21);
+	(13, 5, 16),
+	(14, 5, 17),
+	(15, 5, 18),
+	(16, 6, 19),
+	(17, 6, 20),
+	(18, 6, 21);
 /*!40000 ALTER TABLE `auditoriums` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.blocks
@@ -89,46 +89,64 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   PRIMARY KEY (`id`),
   KEY `FK_BLOCKS_LOCATIONS` (`location_id`),
   CONSTRAINT `FK_BLOCKS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.blocks: ~0 rows (approximately)
+-- Dumping data for table booking_tickets.blocks: ~9 rows (approximately)
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
+INSERT INTO `blocks` (`id`, `name`, `location_id`) VALUES
+	(1, 'A', 4),
+	(2, 'B', 4),
+	(3, 'C', 4),
+	(4, 'D', 4),
+	(5, 'E', 4),
+	(6, 'G', 4),
+	(7, 'H', 4),
+	(9, 'I', 4),
+	(10, 'K', 4);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.booked_combos
 DROP TABLE IF EXISTS `booked_combos`;
 CREATE TABLE IF NOT EXISTS `booked_combos` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `booking_id` int(10) unsigned NOT NULL,
   `combo_id` int(10) unsigned NOT NULL,
   `price` double DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `quantity` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`booking_id`,`combo_id`),
   KEY `FK_BOOKED_COMBOS_COMBOS` (`combo_id`),
   KEY `FK_BOOKED_COMBOS_BOOKINGS` (`booking_id`),
   CONSTRAINT `FK_BOOKED_COMBOS_BOOKINGS` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_BOOKED_COMBOS_COMBOS` FOREIGN KEY (`combo_id`) REFERENCES `combos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.booked_combos: ~0 rows (approximately)
+-- Dumping data for table booking_tickets.booked_combos: ~3 rows (approximately)
 /*!40000 ALTER TABLE `booked_combos` DISABLE KEYS */;
+INSERT INTO `booked_combos` (`booking_id`, `combo_id`, `price`, `quantity`) VALUES
+	(1, 1, 279000, 1),
+	(2, 2, 639000, 1),
+	(2, 3, 269000, 1);
 /*!40000 ALTER TABLE `booked_combos` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.booked_seats
 DROP TABLE IF EXISTS `booked_seats`;
 CREATE TABLE IF NOT EXISTS `booked_seats` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `booking_id` int(10) unsigned NOT NULL,
   `seat_id` int(10) unsigned NOT NULL,
   `price` double unsigned NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`booking_id`,`seat_id`),
   KEY `FK_BOOKED_SEATS_BOOKINGS` (`booking_id`),
   KEY `FK_BOOKED_SEATS_SEATS` (`seat_id`),
   CONSTRAINT `FK_BOOKED_SEATS_BOOKINGS` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_BOOKED_SEATS_SEATS` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.booked_seats: ~0 rows (approximately)
+-- Dumping data for table booking_tickets.booked_seats: ~4 rows (approximately)
 /*!40000 ALTER TABLE `booked_seats` DISABLE KEYS */;
+INSERT INTO `booked_seats` (`booking_id`, `seat_id`, `price`) VALUES
+	(1, 1, 88000),
+	(2, 2, 88000),
+	(2, 3, 88000),
+	(3, 4, 88000);
 /*!40000 ALTER TABLE `booked_seats` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.bookings
@@ -137,14 +155,22 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `account_id` int(10) unsigned NOT NULL,
   `booking_for_date_time` datetime NOT NULL,
+  `movie_showings_id` int(10) unsigned NOT NULL,
+  `code` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_BOOKINGS_ACCOUNTS` (`account_id`),
-  CONSTRAINT `FK_BOOKINGS_ACCOUNTS` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `FK_BOOKINGS_MOVIE_SHOWINGS` (`movie_showings_id`),
+  CONSTRAINT `FK_BOOKINGS_ACCOUNTS` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_BOOKINGS_MOVIE_SHOWINGS` FOREIGN KEY (`movie_showings_id`) REFERENCES `movie_showings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.bookings: ~0 rows (approximately)
+-- Dumping data for table booking_tickets.bookings: ~3 rows (approximately)
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
+INSERT INTO `bookings` (`id`, `account_id`, `booking_for_date_time`, `movie_showings_id`, `code`, `created_at`) VALUES
+	(1, 6, '2019-04-10 08:10:00', 1, 'CGV0001', '2019-04-10 08:10:00'),
+	(2, 6, '2019-04-17 12:00:00', 73, 'BHD0001', '2019-04-17 12:00:00'),
+	(3, 6, '2019-04-20 18:45:00', 152, 'GLX0001', '2019-04-20 18:45:00');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.cinemas
@@ -152,6 +178,7 @@ DROP TABLE IF EXISTS `cinemas`;
 CREATE TABLE IF NOT EXISTS `cinemas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `icon_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `address` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -159,13 +186,13 @@ CREATE TABLE IF NOT EXISTS `cinemas` (
 
 -- Dumping data for table booking_tickets.cinemas: ~6 rows (approximately)
 /*!40000 ALTER TABLE `cinemas` DISABLE KEYS */;
-INSERT INTO `cinemas` (`id`, `name`, `address`, `phone`) VALUES
-	(1, 'CGV', 'Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái, P.14, Q.10, TPHCM.', '1900 6017'),
-	(2, 'BHD Star Cineplex', 'L3-Bitexco Icon 68, 2 Hải Triều, Q.1', '028 6267 0670'),
-	(3, 'GLX - Nguyễn Du', '116 Nguyễn Du, Q.1', '1900 2224'),
-	(4, 'Lotte Cinema Nowzone', 'L5-Nowzone, 235 Nguyễn Văn Cừ, Q.1', '028 3926 2255'),
-	(5, 'CineBox', '212 Lý Chính Thắng, Q.3', '028 3526 4818'),
-	(6, 'Mega GS', '19 Cao Thắng, Q.3', '028 6264 9911');
+INSERT INTO `cinemas` (`id`, `name`, `icon_url`, `address`, `phone`) VALUES
+	(1, 'CGV', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái, P.14, Q.10, TPHCM.', '1900 6017'),
+	(2, 'BHD Star Cineplex', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'L3-Bitexco Icon 68, 2 Hải Triều, Q.1', '028 6267 0670'),
+	(3, 'GLX - Nguyễn Du', 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', '116 Nguyễn Du, Q.1', '1900 2224'),
+	(4, 'Lotte Cinema Nowzone', 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'L5-Nowzone, 235 Nguyễn Văn Cừ, Q.1', '028 3926 2255'),
+	(5, 'CinemaBox', 'https://drive.google.com/uc?id=1XVxfIUhuAdUrYoxTFqg9D3hJsJFYXBB-', '212 Lý Chính Thắng, Q.3', '028 3526 4818'),
+	(6, 'Mega GS', 'https://drive.google.com/uc?id=17-aQUOfjscXp2b8HDozTB86LnXflz83D', '19 Cao Thắng, Q.3', '028 6264 9911');
 /*!40000 ALTER TABLE `cinemas` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.combos
@@ -690,10 +717,15 @@ CREATE TABLE IF NOT EXISTS `seats` (
   KEY `FK_SEATS_BLOCKS` (`block_id`),
   CONSTRAINT `FK_SEATS_BLOCKS` FOREIGN KEY (`block_id`) REFERENCES `blocks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_SEATS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.seats: ~0 rows (approximately)
+-- Dumping data for table booking_tickets.seats: ~4 rows (approximately)
 /*!40000 ALTER TABLE `seats` DISABLE KEYS */;
+INSERT INTO `seats` (`id`, `row`, `number`, `type`, `location_id`, `block_id`) VALUES
+	(1, 1, 1, 0, 4, 1),
+	(2, 1, 1, 0, 7, 2),
+	(3, 1, 2, 0, 7, 2),
+	(4, 1, 1, 0, 10, 3);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.users

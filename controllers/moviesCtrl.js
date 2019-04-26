@@ -74,6 +74,7 @@ router.post('/showing/byDay', (req, res) => {
                         }
                     }
                     var cinemas = { cinemaName: rows[i].cinemaName,
+                                    iconURL: rows[i].iconURL,
                                     address: rows[i].address,
                                     showTime };
                     arr.push(cinemas);

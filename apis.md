@@ -30,3 +30,12 @@
 
 * Đổi mật khẩu tài khoản:
 	[POST] http://localhost:4000/accounts/changePassword (body: id, current_password, new_password)
+
+* Lấy danh sách các vé đã đặt mua của account
+	[GET] http://localhost:4000/bookings/account/<id>
+
+* Lấy danh sách các vị trí ghế của vé đã đặt theo account
+	[GET] http://localhost:4000/bookedSeats/account/<id>
+
+* Lấy danh sách các combo của vé đã đặt theo account
+	[GET] http://localhost:4000/bookedCombos/account/<id>
