@@ -3,7 +3,7 @@ var bookedSeatsRepo = require('../repositories/bookedSeatsRepo');
 
 var router = express.Router();
 
-router.get('/account/:id', (req, res) => {
+router.get('/booking/:id', (req, res) => {
     var id = req.params.id;
     bookedSeatsRepo.loadByBookingID(id)
         .then(rows => {

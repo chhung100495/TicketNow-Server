@@ -3,7 +3,7 @@ var bookedCombosRepo = require('../repositories/bookedCombosRepo');
 
 var router = express.Router();
 
-router.get('/account/:id', (req, res) => {
+router.get('/booking/:id', (req, res) => {
     var id = req.params.id;
     bookedCombosRepo.loadByBookingID(id)
         .then(rows => {

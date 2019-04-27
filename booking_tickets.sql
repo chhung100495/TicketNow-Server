@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   CONSTRAINT `FK_BLOCKS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.blocks: ~9 rows (approximately)
+-- Dumping data for table booking_tickets.blocks: ~10 rows (approximately)
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
 INSERT INTO `blocks` (`id`, `name`, `location_id`) VALUES
 	(1, 'A', 4),
@@ -101,8 +101,9 @@ INSERT INTO `blocks` (`id`, `name`, `location_id`) VALUES
 	(5, 'E', 4),
 	(6, 'G', 4),
 	(7, 'H', 4),
-	(9, 'I', 4),
-	(10, 'K', 4);
+	(8, 'I', 4),
+	(9, 'K', 4),
+	(10, 'L', 4);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.booked_combos
@@ -707,8 +708,8 @@ INSERT INTO `movie_showings` (`id`, `movie_id`, `auditorium_id`, `price`, `statu
 DROP TABLE IF EXISTS `seats`;
 CREATE TABLE IF NOT EXISTS `seats` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `row` int(10) unsigned NOT NULL,
-  `number` int(10) unsigned NOT NULL,
+  `row` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `number` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` int(10) unsigned NOT NULL,
   `location_id` int(10) unsigned NOT NULL,
   `block_id` int(10) unsigned NOT NULL,
@@ -719,13 +720,13 @@ CREATE TABLE IF NOT EXISTS `seats` (
   CONSTRAINT `FK_SEATS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.seats: ~4 rows (approximately)
+-- Dumping data for table booking_tickets.seats: ~5 rows (approximately)
 /*!40000 ALTER TABLE `seats` DISABLE KEYS */;
 INSERT INTO `seats` (`id`, `row`, `number`, `type`, `location_id`, `block_id`) VALUES
-	(1, 1, 1, 0, 4, 1),
-	(2, 1, 1, 0, 7, 2),
-	(3, 1, 2, 0, 7, 2),
-	(4, 1, 1, 0, 10, 3);
+	(1, 'A', '1', 0, 4, 1),
+	(2, 'F', '1', 0, 7, 2),
+	(3, 'F', '2', 0, 7, 2),
+	(4, 'B', '1', 0, 10, 3);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.users
