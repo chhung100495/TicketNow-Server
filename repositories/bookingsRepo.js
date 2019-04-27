@@ -4,7 +4,7 @@ exports.loadByAccountID = function(id) {
     var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as imgURL,
         c.name as cinemaName, c.icon_url as iconURL, c.address,
         l.name as room,
-        ms.release_date, ms.time,
+        ms.release_date as releaseDate, ms.time,
         bk.code, bk.id
         FROM bookings as bk
         INNER JOIN movie_showings as ms ON ms.id = bk.movie_showings_id
