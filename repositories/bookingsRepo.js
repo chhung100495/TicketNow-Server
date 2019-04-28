@@ -1,7 +1,7 @@
 var db = require('../fn/mysql-db');
 
 exports.loadByAccountID = function(id) {
-    var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as imgURL,
+    var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as imgURL, m.running_time as runningTime,
         c.name as cinemaName, c.icon_url as iconURL, c.address,
         l.name as room,
         ms.release_date as releaseDate, ms.time,
