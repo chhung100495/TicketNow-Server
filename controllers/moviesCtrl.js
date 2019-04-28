@@ -56,14 +56,13 @@ router.get('/commingSoon', (req, res) => {
         })
 })
 
-router.get('/showing/byDay', (req, res) => {
-    var movieID = req.body.movie_id;
-    var date = new Date(req.body.date);
+router.get('/:id/showing/:date', (req, res) => {
+    var movieID = req.params.id;
+    var date = new Date(parseInt(req.params.date));
     var formattedDate = moment(date).format("YYYY-MM-DD");
     moviesRepo.loadByDay(movieID, formattedDate)
         .then(rows => {
             if (rows.length > 0) {
-                movie = rows[0].movieName;
                 var arr = [];
                 var flag = 0;
                 for (var i = 0; i < rows.length; i++) {
@@ -83,7 +82,7 @@ router.get('/showing/byDay', (req, res) => {
                         flag = rows[i].cinemaID;
                     }
                 }
-                var obj = { movie, cinemas: arr };
+                var obj = { cinemas: arr };
                 var results = {result: obj};
                 res.json(results);
             } else {
