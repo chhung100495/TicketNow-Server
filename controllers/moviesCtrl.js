@@ -56,7 +56,7 @@ router.get('/commingSoon', (req, res) => {
         })
 })
 
-router.post('/showing/byDay', (req, res) => {
+router.get('/showing/byDay', (req, res) => {
     var movieID = req.body.movie_id;
     var date = new Date(req.body.date);
     var formattedDate = moment(date).format("YYYY-MM-DD");

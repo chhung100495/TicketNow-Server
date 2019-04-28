@@ -8,7 +8,7 @@
 	[GET] http://localhost:4000/movies/commingSoon
 
 * Lấy danh sách thông tin rạp chiếu cùng xuất chiếu của 1 bộ phim:
-	[POST] http://localhost:4000/movies/showing/byDay (body: date (Unix Timestamp), movie_id)
+	[GET] http://localhost:4000/movies/showing/byDay (body: date (Unix Timestamp), movie_id)
 
 * Lấy thông tin của các bộ phim theo id:
 	[GET] http://localhost:4000/movies/<id>
