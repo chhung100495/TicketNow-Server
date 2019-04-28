@@ -62,28 +62,34 @@ router.get('/showing/byDay', (req, res) => {
     var formattedDate = moment(date).format("YYYY-MM-DD");
     moviesRepo.loadByDay(movieID, formattedDate)
         .then(rows => {
-            movie = rows[0].movieName;
-            var arr = [];
-            var flag = 0;
-            for (var i = 0; i < rows.length; i++) {
-                if (rows[i].cinemaID != flag) {
-                    var showTime = [];
-                    for (var j = 0; j < rows.length; j++) {
-                        if (rows[i].cinemaID == rows[j].cinemaID) {
-                            showTime.push({price: rows[j].price, time: rows[j].time, location: rows[j].location, totalSeats: rows[j].totalSeats });
+            if (rows.length > 0) {
+                movie = rows[0].movieName;
+                var arr = [];
+                var flag = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    if (rows[i].cinemaID != flag) {
+                        var showTimes = [];
+                        for (var j = 0; j < rows.length; j++) {
+                            if (rows[i].cinemaID == rows[j].cinemaID) {
+                                showTimes.push({id: rows[j].movieShowingsID ,price: rows[j].price, time: rows[j].time, location: rows[j].location, totalSeats: rows[j].totalSeats });
+                            }
                         }
+                        var cinemas = { cinemaID: rows[i].cinemaID,
+                                        cinemaName: rows[i].cinemaName,
+                                        iconURL: rows[i].iconURL,
+                                        address: rows[i].address,
+                                        showTimes };
+                        arr.push(cinemas);
+                        flag = rows[i].cinemaID;
                     }
-                    var cinemas = { cinemaName: rows[i].cinemaName,
-                                    iconURL: rows[i].iconURL,
-                                    address: rows[i].address,
-                                    showTime };
-                    arr.push(cinemas);
-                    flag = rows[i].cinemaID;
                 }
+                var obj = { movie, cinemas: arr };
+                var results = {result: obj};
+                res.json(results);
+            } else {
+                res.statusCode = 204;
+                res.end('No data');
             }
-            var obj = { movie, cinemas: arr };
-            var results = {result: obj};
-            res.json(results);
         })
         .catch(err => {
             console.log(err);
