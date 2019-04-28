@@ -82,8 +82,7 @@ router.get('/:id/showing/:date', (req, res) => {
                         flag = rows[i].cinemaID;
                     }
                 }
-                var obj = { cinemas: arr };
-                var results = {result: obj};
+                var results = {result: arr};
                 res.json(results);
             } else {
                 res.statusCode = 204;
