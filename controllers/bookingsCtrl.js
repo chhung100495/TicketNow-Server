@@ -29,7 +29,7 @@ router.get('/account/:id', (req, res) => {
                                             releaseDate: rows[i].releaseDate,
                                             time: rows[i].time,
                                             code: rows[i].code,
-                                            seats };
+                                            bookedSeatList: seats };
                         arr.push(bookings);
                         flag = rows[i].id;
                     }
