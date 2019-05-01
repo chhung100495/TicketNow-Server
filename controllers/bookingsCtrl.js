@@ -21,6 +21,7 @@ router.get('/account/:id', (req, res) => {
                         var bookings = {    id: rows[i].id,
                                             movieName: rows[i].movieName,
                                             minAge: rows[i].minAge,
+                                            type: rows[i].type,
                                             imgURL: rows[i].imgURL,
                                             cinemaName: rows[i].cinemaName,
                                             runningTime: rows[i].runningTime,
