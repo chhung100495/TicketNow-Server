@@ -1,4 +1,5 @@
 var db = require('../fn/mysql-db');
+var genCode = require('../fn/generateCode').genCode;
 
 exports.loadByAccountID = function(id) {
     var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as imgURL, m.running_time as runningTime,
@@ -18,4 +19,28 @@ exports.loadByAccountID = function(id) {
         WHERE bk.account_id = '${id}'
         ORDER BY bk.id ASC`;
     return db.load(sql);
+}
+
+exports.add = function(bookingEntity) {
+    var code = genCode(10);
+    var insertBookingsRecord = `INSERT INTO bookings(account_id, movie_showings_id, code)
+        values('${bookingEntity.account_id}', '${bookingEntity.movie_showings_id}', '${code}')`;
+
+    var insertBookedSeatsRecord = ``;
+    var numOfBookedSeatsRecord = bookingEntity.bookedSeats.length;
+    for (var i = 0; i < numOfBookedSeatsRecord; i++) {
+        insertBookedSeatsRecord += `INSERT INTO booked_seats(booking_id, seat_id, price)
+            values(?, '${bookingEntity.bookedSeats[i].seat_id}', '${bookingEntity.bookedSeats[i].price}'); `;
+    }
+
+    var insertBookedCombosRecord = ``;
+    var numOfBookedCombosRecord = bookingEntity.bookedCombos.length;
+    if (numOfBookedCombosRecord > 0) {
+        for (var i = 0; i < numOfBookedCombosRecord; i++) {
+            insertBookedCombosRecord += `INSERT INTO booked_combos(booking_id, combo_id, price, quantity)
+                values(?, '${bookingEntity.bookedCombos[i].seat_id}', '${bookingEntity.bookedCombos[i].price}', '${bookingEntity.bookedCombos[i].quantity}'); `;
+        }
+    }
+    queries = [insertBookingsRecord, insertBookedSeatsRecord, insertBookedCombosRecord]
+    return db.executeBooking(queries, numOfBookedSeatsRecord, numOfBookedCombosRecord);
 }

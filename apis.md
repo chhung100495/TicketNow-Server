@@ -39,3 +39,37 @@
 
 * Lấy danh sách các combo của vé đã đặt theo account
 	[GET] http://localhost:4000/bookedCombos/account/<id>
+
+* Lấy danh sách thông tin các vị trí ghế theo suất chiếu
+	[GET] http://localhost:4000/seats/movieShowing/<movieShowingID>/location/<locationID>
+
+* Đặt vé
+	[POST] http://localhost:4000/bookings/add
+	(body: {
+		"account_id": 1,
+		"movie_showings_id": 1,
+		"location_id": 1,
+		"bookedSeats": [
+			{
+				"seat_id": 2,
+				"price": 88000
+			},
+			{
+				"seat_id": 3,
+				"price": 88000
+			}
+		],
+		"bookedCombos": [
+			{
+				"combo_id": 1,
+				"price": 50000,
+				"quantity": 1
+			},
+			{
+				"combo_id": 1,
+				"price": 50000,
+				"quantity": 1
+			}
+		]
+	})
+	/* Nếu không có đặt combo: "bookedCombos": [] */

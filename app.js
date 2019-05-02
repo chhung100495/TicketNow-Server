@@ -4,6 +4,7 @@ var usersCtrl = require('./controllers/usersCtrl');
 var bookingsCtrl = require('./controllers/bookingsCtrl');
 var bookedSeatsCtrl = require('./controllers/bookedSeatsCtrl');
 var bookedCombosCtrl = require('./controllers/bookedCombosCtrl');
+var seatsCtrl = require('./controllers/seatsCtrl');
 
 var express = require('express'),
     morgan = require('morgan'),
@@ -27,3 +28,4 @@ app.use('/users', usersCtrl);
 app.use('/bookings', bookingsCtrl);
 app.use('/bookedSeats', bookedSeatsCtrl);
 app.use('/bookedCombos', bookedCombosCtrl);
+app.use('/seats', seatsCtrl);

@@ -5,7 +5,8 @@ var mysql = require('mysql');
 //     port     : '3306',
 //     user     : 'root',
 //     password : '',
-//     database : 'booking_tickets'
+//     database : 'booking_tickets',
+//     multipleStatements: true
 // };
 
 // mysql://b6a2871d0e51fc:cd5fd474@us-cdbr-iron-east-03.cleardb.net/heroku_9795ac331e55444?reconnect=true
@@ -14,7 +15,8 @@ var config = {
     port     : '3306',
     user     : 'b6a2871d0e51fc',
     password : 'cd5fd474',
-    database : 'heroku_9795ac331e55444'
+    database : 'heroku_9795ac331e55444',
+    multipleStatements: true
 };
 
 exports.load = function(sql) {
@@ -93,6 +95,90 @@ exports.executeTransaction = function(queries) {
                         console.log('Transaction Complete');
                         connection.end();
                     });
+                });
+            });
+        });
+        /* End transaction */
+    });
+}
+
+exports.executeBooking = function(queries, numOfBookedSeatsRecord, numOfBookedCombosRecord) {
+    return new Promise((resolve, reject) => {
+        var connection = mysql.createConnection(config);
+
+        connection.connect();
+
+        var bookingResults = [];
+
+        /* Begin transaction */
+        connection.beginTransaction(function(err) {
+            if (err) { reject(err); }
+
+            connection.query(queries[0], function(err, result) {
+                if (err) {
+                    connection.rollback(function() {
+                        reject(err);
+                    });
+                }
+
+                bookingResults = bookingResults.concat(result);
+
+                var id = result.insertId;
+
+                var arrayID = [];
+                for (var i = 0; i < numOfBookedSeatsRecord; i++) {
+                    arrayID.push(id);
+                }
+                connection.query(queries[1], arrayID, function(err, results, fields) {
+                    if (err) {
+                        connection.rollback(function() {
+                            reject(err);
+                        });
+                    }
+
+                    for (var i = 0; i < results.length; i++) {
+                        bookingResults = bookingResults.concat(results[i]);
+                    }
+
+                    if (numOfBookedCombosRecord > 0) {
+                        arrayID = [];
+                        for (var i = 0; i < numOfBookedCombosRecord; i++) {
+                            arrayID.push(id);
+                        }
+                        connection.query(queries[2], [id, id], function(err, results, fields) {
+                            if (err) {
+                                connection.rollback(function() {
+                                    reject(err);
+                                });
+                            }
+
+                            for (var i = 0; i < results.length; i++) {
+                                bookingResults = bookingResults.concat(results[i]);
+                            }
+
+                            connection.commit(function(err) {
+                                if (err) {
+                                    connection.rollback(function() {
+                                        reject(err);
+                                    });
+                                }
+                                resolve(bookingResults);
+                                console.log('Transaction Complete');
+                                connection.end();
+                            });
+                        });
+                    } else {
+                        connection.commit(function(err) {
+                            if (err) {
+                                connection.rollback(function() {
+                                    reject(err);
+                                });
+                            }
+                            resolve(bookingResults);
+                            console.log('Transaction Complete');
+                            connection.end();
+                        });
+                    }
                 });
             });
         });
