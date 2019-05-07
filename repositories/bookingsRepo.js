@@ -22,7 +22,7 @@ exports.loadByAccountID = function(id) {
 }
 
 exports.add = function(bookingEntity) {
-    var code = genCode(10);
+    var code = genCode(7);
     var insertBookingsRecord = `INSERT INTO bookings(account_id, movie_showings_id, code)
         values('${bookingEntity.account_id}', '${bookingEntity.movie_showings_id}', '${code}')`;
 
