@@ -57,7 +57,7 @@ router.post('/add', (req, res) => {
             if (values[0].affectedRows != 0) {
                 res.statusCode = 201;
                 res.json({
-                    result: [{id: values[0].insertId}]
+                    result: {id: values[0].insertId}
                 });
             }
         })
