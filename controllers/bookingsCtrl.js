@@ -68,4 +68,43 @@ router.post('/add', (req, res) => {
         })
 })
 
+router.get('/:bookingID/account/:accountID', (req, res) => {
+    var bookingID = req.params.bookingID;
+    var accountID = req.params.accountID;
+    bookingsRepo.loadSingle(bookingID, accountID)
+        .then(rows => {
+            if (rows.length > 0) {
+                var seats = [];
+                for (var i = 0; i < rows.length; i++) {
+                    seats.push({row: rows[i].row, number: rows[i].number });
+                }
+                var obj = {
+                    movieName: rows[0].movieName,
+                    minAge: rows[0].minAge,
+                    type: rows[0].type,
+                    runningTime: rows[0].runningTime,
+                    cinemaName: rows[0].cinemaName,
+                    iconURL: rows[0].iconURL,
+                    address: rows[0].address,
+                    room: rows[0].room,
+                    releaseDate: rows[0].releaseDate,
+                    time: rows[0].time,
+                    room: rows[0].room,
+                    code: rows[0].code,
+                    bookedSeats: seats
+                }
+                var results = { result: obj };
+                res.json(results);
+            } else {
+                res.statusCode = 204;
+                res.end('No data');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.statusCode = 500;
+            res.end('View error log on server console');
+        })
+})
+
 module.exports = router;

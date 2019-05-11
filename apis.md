@@ -34,6 +34,9 @@
 * Lấy danh sách các vé đã đặt mua của account
 	[GET] http://localhost:4000/bookings/account/<id>
 
+* Lấy thông tin vé đã đặt mua dựa vào booking id và account id
+	[GET] http://localhost:4000/bookings/<id>/account/<id>
+
 * Lấy danh sách các vị trí ghế của vé đã đặt theo account
 	[GET] http://localhost:4000/bookedSeats/account/<id>
 

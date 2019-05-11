@@ -145,7 +145,7 @@ exports.executeBooking = function(queries, numOfBookedSeatsRecord, numOfBookedCo
                         for (var i = 0; i < numOfBookedCombosRecord; i++) {
                             arrayID.push(id);
                         }
-                        connection.query(queries[2], [id, id], function(err, results, fields) {
+                        connection.query(queries[2], arrayID, function(err, result, fields) {
                             if (err) {
                                 connection.rollback(function() {
                                     reject(err);
