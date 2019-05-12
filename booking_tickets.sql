@@ -89,21 +89,47 @@ CREATE TABLE IF NOT EXISTS `blocks` (
   PRIMARY KEY (`id`),
   KEY `FK_BLOCKS_LOCATIONS` (`location_id`),
   CONSTRAINT `FK_BLOCKS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.blocks: ~10 rows (approximately)
+-- Dumping data for table booking_tickets.blocks: ~36 rows (approximately)
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
 INSERT INTO `blocks` (`id`, `name`, `location_id`) VALUES
-	(1, 'A', 4),
-	(2, 'B', 4),
-	(3, 'C', 4),
-	(4, 'D', 4),
-	(5, 'E', 4),
-	(6, 'F', 4),
-	(7, 'G', 4),
-	(8, 'H', 4),
-	(9, 'I', 4),
-	(10, 'J', 4);
+	(1, 'Khán đài A', 1),
+	(2, 'Khán đài B', 1),
+	(3, 'Khán đài C', 1),
+	(4, 'Khán đài D', 1),
+	(5, 'Khán đài A', 2),
+	(6, 'Khán đài B', 2),
+	(7, 'Khán đài C', 2),
+	(8, 'Khán đài D', 2),
+	(9, 'Khán đài A', 3),
+	(10, 'Khán đài B', 3),
+	(11, 'Khán đài C', 3),
+	(12, 'Khán đài D', 3),
+	(13, 'Khán đài A', 22),
+	(14, 'Khán đài B', 22),
+	(15, 'Khán đài C', 22),
+	(16, 'Khán đài D', 22),
+	(17, 'Khán đài A', 23),
+	(18, 'Khán đài B', 23),
+	(19, 'Khán đài C', 23),
+	(20, 'Khán đài D', 23),
+	(21, 'Khán đài A', 24),
+	(22, 'Khán đài B', 24),
+	(23, 'Khán đài C', 24),
+	(24, 'Khán đài D', 24),
+	(25, 'Khán đài A', 22),
+	(26, 'Khán đài B', 22),
+	(27, 'Khán đài C', 22),
+	(28, 'Khán đài D', 22),
+	(29, 'Khán đài A', 23),
+	(30, 'Khán đài B', 23),
+	(31, 'Khán đài C', 23),
+	(32, 'Khán đài D', 23),
+	(33, 'Khán đài A', 24),
+	(34, 'Khán đài B', 24),
+	(35, 'Khán đài C', 24),
+	(36, 'Khán đài D', 24);
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.booked_combos
@@ -141,13 +167,14 @@ CREATE TABLE IF NOT EXISTS `booked_seats` (
   CONSTRAINT `FK_BOOKED_SEATS_SEATS` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.booked_seats: ~4 rows (approximately)
+-- Dumping data for table booking_tickets.booked_seats: ~5 rows (approximately)
 /*!40000 ALTER TABLE `booked_seats` DISABLE KEYS */;
 INSERT INTO `booked_seats` (`booking_id`, `seat_id`, `price`) VALUES
 	(1, 1, 88000),
 	(2, 421, 88000),
 	(2, 422, 88000),
-	(3, 733, 88000);
+	(3, 733, 88000),
+	(4, 2161, 100000);
 /*!40000 ALTER TABLE `booked_seats` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.bookings
@@ -155,45 +182,101 @@ DROP TABLE IF EXISTS `bookings`;
 CREATE TABLE IF NOT EXISTS `bookings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `account_id` int(10) unsigned NOT NULL,
-  `movie_showings_id` int(10) unsigned NOT NULL,
+  `movie_showings_id` int(10) unsigned DEFAULT NULL,
+  `sale_id` int(10) unsigned DEFAULT NULL,
   `code` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_BOOKINGS_ACCOUNTS` (`account_id`),
   KEY `FK_BOOKINGS_MOVIE_SHOWINGS` (`movie_showings_id`),
+  KEY `FK_BOOKINGS_SALES` (`sale_id`),
   CONSTRAINT `FK_BOOKINGS_ACCOUNTS` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_BOOKINGS_MOVIE_SHOWINGS` FOREIGN KEY (`movie_showings_id`) REFERENCES `movie_showings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `FK_BOOKINGS_MOVIE_SHOWINGS` FOREIGN KEY (`movie_showings_id`) REFERENCES `movie_showings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_BOOKINGS_SALES` FOREIGN KEY (`sale_id`) REFERENCES `sales` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.bookings: ~3 rows (approximately)
+-- Dumping data for table booking_tickets.bookings: ~4 rows (approximately)
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
-INSERT INTO `bookings` (`id`, `account_id`, `movie_showings_id`, `code`, `created_at`) VALUES
-	(1, 6, 1, '5hlyRb9', '2019-04-10 08:10:00'),
-	(2, 6, 73, 'hUmTCvX', '2019-04-17 12:00:00'),
-	(3, 6, 152, 'Js0JS21', '2019-04-20 18:45:00');
+INSERT INTO `bookings` (`id`, `account_id`, `movie_showings_id`, `sale_id`, `code`, `type`, `created_at`) VALUES
+	(1, 6, 1, NULL, '5hlyRb9', 0, '2019-04-10 08:10:00'),
+	(2, 6, 73, NULL, 'hUmTCvX', 0, '2019-04-17 12:00:00'),
+	(3, 6, 152, NULL, 'Js0JS21', 0, '2019-04-20 18:45:00'),
+	(4, 6, NULL, 1, 'suA071u', 1, '2019-06-06 11:32:00');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.cinemas
 DROP TABLE IF EXISTS `cinemas`;
 CREATE TABLE IF NOT EXISTS `cinemas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `icon_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `address` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `view_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operating_hours` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `introduce` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cineplex_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_CINEMAS_CINEPLEX` (`cineplex_id`),
+  CONSTRAINT `FK_CINEMAS_CINEPLEX` FOREIGN KEY (`cineplex_id`) REFERENCES `cineplex` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.cinemas: ~6 rows (approximately)
+-- Dumping data for table booking_tickets.cinemas: ~28 rows (approximately)
 /*!40000 ALTER TABLE `cinemas` DISABLE KEYS */;
-INSERT INTO `cinemas` (`id`, `name`, `icon_url`, `address`, `phone`) VALUES
-	(1, 'CGV', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'Tầng 2, Rivera Park Saigon - Số 7/28 Thành Thái, P.14, Q.10, TP.HCM', '1900 6017'),
-	(2, 'BHD Star Cineplex', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'L3-Bitexco Icon 68, 2 Hải Triều, Q.1', '028 6267 0670'),
-	(3, 'GLX - Nguyễn Du', 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', '116 Nguyễn Du, Q.1', '1900 2224'),
-	(4, 'Lotte Cinema Nowzone', 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'L5-Nowzone, 235 Nguyễn Văn Cừ, Q.1', '028 3926 2255'),
-	(5, 'CinemaBox', 'https://drive.google.com/uc?id=1XVxfIUhuAdUrYoxTFqg9D3hJsJFYXBB-', '212 Lý Chính Thắng, Q.3', '028 3526 4818'),
-	(6, 'Mega GS', 'https://drive.google.com/uc?id=17-aQUOfjscXp2b8HDozTB86LnXflz83D', '19 Cao Thắng, Q.3', '028 6264 9911');
+INSERT INTO `cinemas` (`id`, `name`, `icon_url`, `view_url`, `address`, `phone`, `operating_hours`, `introduce`, `cineplex_id`) VALUES
+	(1, 'CGV - Pearl Plaza', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1t8OpRhhapWpC_kYsQ0P0kqbtr7xjuLyo', 'Lầu 5, Pearl Plaza, 561 Điện Biên Phủ, Bình Thạnh, TP.HCM', '083 510 6788', '8:00 - 23:30', 'CGV Pearl Plaza là một trong những cụm rạp chiếu phim tiêu chuẩn quốc tế của hệ thống rạp chiếu phim CGV tại thị trường Việt Nam. CGV Pearl Plaza đi vào hoạt động với 7 phòng chiếu, gần 800 chỗ ngồi đi kèm công nghệ chiếu phim hiện đại, chắc chắn sẽ mang đến cho khán giả những trải nghiệm điện ảnh đẳng cấp và hoàn toàn khác biệt.', 1),
+	(2, 'BHD - Bitexco', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'https://drive.google.com/uc?id=16xn7YyMdowfRp2b_E8JZq4jW-wHmc476', 'L3-Bitexco Icon 68, 2 Hải Triều, Q.1, TP.HCM', '028 6267 0670', '8:00 - 24:00', 'Đây là một trong những cụm rạp được đầu tư quy mô nhất hiện nay tại Việt Nam, với tổng diện tích hơn 2.000 m2, bao gồm 7 phòng chiếu được trang bị theo tiêu chuẩn quốc tế. Âm thanh đạt chuẩn Dolby 7.1 với hệ thống cách âm hiện đại, trong đó có 4 phòng 3D,  cùng hơn 1.000 ghế ngồi được thiết kế theo kiểu dáng đẹp mắt và tiện dụng để mang lại sự thoải mái nhất cho khán giả.', 2),
+	(3, 'GLX - Nguyễn Du', 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', 'https://drive.google.com/uc?id=1aO8AdM_BwCEsqj9qagEk36JdijDNdfd7', '116 Nguyễn Du, Q.1, TP.HCM', '1900 2224', '9:00 - 23:00', 'Galaxy Nguyễn Du gồm 5 phòng chiếu với hơn 1000 chỗ ngồi được thiết kế tinh tế giúp khách hàng có thể xem phim một cách thoải mái và thuận tiện. Chất lượng hình ảnh rõ nét, màn hình chiếu kỹ thuật 3D và Digital vô cùng sắc mịn, mang đến một không gian giải trí vô cùng sống động.', 3),
+	(4, 'Lotte - Nowzone', 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'https://drive.google.com/uc?id=1MsC368wcQHKOjuXpJNhXdFIHv5XOXley', 'L5-Nowzone, 235 Nguyễn Văn Cừ, Q.1, TP.HCM', '028 3926 2255', '8:00 - 24:00', 'Cụm rạp Lotte Cinema Nowzone hoạt động tại Tầng 5 TTTM Nowzone, 235 Nguyễn Văn Cừ, Q1, TP.HCM. Là cụm rạp <i>sinh sau đẻ muộn</i> khi là cụm rạp thứ 6 tại TPHCM của Lotte Cinema, nhưng Lotte Cinema Nowzone vẫn có nhiều điểm nhấn khác biệt với các <i>đàn anh</i> đi trước. Đầu tiên là vị trí thuận lợi bậc nhất khi nằm trên con đường Nguyễn Văn Cừ nhộn nhịp và đông đúc, là đầu mối giao thông của 4 quận trung tâm là Q1, Q3, Q5 và Q10, sát bên nhiều trường THPT và Đại Học, nên rất dễ dàng cho các bạn khán giả trẻ từ khắp nơi đổ về xem phim và thư giãn.', 4),
+	(5, 'CineBox - Lý Chính Thắng', 'https://drive.google.com/uc?id=1XVxfIUhuAdUrYoxTFqg9D3hJsJFYXBB-', 'https://drive.google.com/uc?id=1Xk2QHIYUUlEqzHoR8hb0s0R-a2t_ZX0N', '212 Lý Chính Thắng, Q.3, TP.HCM', '028 3526 4818', '8:00 - 23:30', 'Hệ thống âm thanh hiện đại DOLBY Digital – được các nhà sản xuất phim lớn trên thế giới công nhận, tại Cinebox, bạn được chúng tôi truyền đạt cảm xúc âm thanh đích thực từ tác phẩm điện ảnh. Cinebox luôn hướng đến một môi trường giải trí thanh lịch và thân thiện, tạo cho bạn cảm giác thoải mái và gần gũi khi thưởng thức cà phê, ăn nhẹ, cùng xem một bộ phim với người yêu, bạn bè hay người thân trong gia đình.', 8),
+	(6, 'MegaGS - Cao Thắng', 'https://drive.google.com/uc?id=17-aQUOfjscXp2b8HDozTB86LnXflz83D', 'https://drive.google.com/uc?id=1YUhGtrKkDBjlEhTeF4m4ly5uKYTznVLa', '19 Cao Thắng, Q.3, TP.HCM', '028 6264 9911', '8:30 - 23:30', 'So với chất lượng mang lại thì giá cả tại Mega GS lại cực kỳ hấp dẫn. Giá vé phim 2D vào suất sớm trước 11h sáng chỉ 40,000đ đối với ngày thường, và 55,000đ đối với ngày cuối tuần. Đặc biệt ngày thứ 4 vui vẻ MEGA DAY luôn là ngày hấp dẫn nhất với mức giá rẻ nhất trong tuần với chỉ 50,000đ dành cho trẻ em / HS-SV và 55,000đ dành cho người lớn.', 6),
+	(7, 'DDC - Đống Đa', 'https://drive.google.com/uc?id=1GwEzMWR_uaePfL3aGDqJcBP1S41-Dy5q', 'https://drive.google.com/uc?id=1j2MkSUIOkVIeX3FANnJ7zGlo_QSRYPKi', '890 Trần Hưng Đạo, Q.5, TP.HCM', '028 39 2344833', '8:30 - 23:00', 'DDC gồm 6 phòng chiếu với gần 1000 chỗ ngồi được thiết kế tinh tế giúp khách hàng có thể xem phim một cách thoải mái và thuận tiện nhất. Chất lượng hình ảnh rõ nét, màn hình chiếu kỹ thuật  vô cùng sắc mịn, mang đến một không gian giải trí vô cùng sống động, không những thế giá vé cực kỳ rẻ cũng như combo bắp nước và quà khuyến mãi theo phim cực kool cũng được xem như là một thế mạnh của DDC.', 7),
+	(8, 'CNS - Hai Bà Trưng', 'https://drive.google.com/uc?id=1q85L57gmNfTp25p7wlgUo-5WSajqNzpF', 'https://drive.google.com/uc?id=17cvqwd36XwZ4nC75IoRyF8uqG6AGRD27', '135 Hai Bà Trưng, Bến Nghé, Q.1, TP.HCM', '028 7300 7279', '8:00 - 23:30', 'Rạp nằm ngay trụng tâm quận 1. Cụm rạp là một không gian giải trí rộng lớn để hẹn bạn bè, sinh nhật, họp báo, café hay đơn giản là selfie. Thức uống ngon, Coca-cola sảng khoái, bắp rang phô mai, caramel bổ dưỡng với giá cả cực chất.  Nhiều events liên tục ra mắt các bộ phim mới và các chương trình khuyến mãi hấp dẫn riêng có tại Cinestar Cinema.', 5),
+	(9, 'CNS - Quốc Thanh', 'https://drive.google.com/uc?id=1q85L57gmNfTp25p7wlgUo-5WSajqNzpF', 'https://drive.google.com/uc?id=14l7uW10TFjjHAUVmpd2oOxMDXjgORaeZ', '271 Nguyễn Trãi, Q.1, TP.HCM', '028 7300 8881', '8:00 - 23:30', 'Rạp nằm ngay trụng tâm quận 1. Cụm rạp là một không gian giải trí rộng lớn để hẹn bạn bè, sinh nhật, họp báo, café hay đơn giản là selfie. Thức uống ngon, Coca-cola sảng khoái, bắp rang phô mai, caramel bổ dưỡng với giá cả cực chất.  Nhiều events liên tục ra mắt các bộ phim mới và các chương trình khuyến mãi hấp dẫn riêng có tại Cinestar Cinema.', 5),
+	(10, 'CGV - Sư Vạn Hạnh', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1K90OWapTgbWcgGgrwSf0idwKiPEi0IhC', 'Tầng 6 Vạn Hạnh Mall, 11 Sư Vạn Hạnh, Quận 10, TP.HCM', '028 3862 5588', '8:00 - 23:30', 'Cũng như các cụm rạp khác trên toàn quốc, rạp Sư Vạn Hạnh vẫn được thiết kế theo phong cách retro cổ điển, quen thuộc. Tuy nhiên với lợi thế không gian lớn, rạp được bố trí đẹp mắt với những điểm nhấn ấn tượng đủ để khán giả đến với rạp mê mẩn và thỏa sức chụp ảnh tại bất kỳ góc nào của rạp.\r\n\\nMỗi phòng chiếu phim được trang bị hệ thống ghế ngồi êm ái, mang lại cảm giác thoải mái cho người xem khi theo dõi một tác phẩm có thời lượng khoảng hai tiếng đồng hồ. Hệ thống màn hình và âm thanh tiêu chuẩn quốc tế, mang lại những hình ảnh sắc nét và đầy cảm xúc dành cho khán giả khi theo dõi phim.', 1),
+	(11, 'CGV - Golden Plaza', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1Bn2Uy5J75U4oZ2QV2J0BL4dhInfmZtRY', 'Tầng 4, Trung tâm thương mại Golden Plaza, 922 Nguyễn Trãi, P.14, Q.5, TP.HCM', '1900 6017', '8:00 - 23:30', 'Chính thức khai trương CGV Golden Plaza - cụm rạp thứ 40, tọa lạc tại tầng 4, Trung tâm thương mại Golden Plaza (922 Nguyễn Trãi, Phường 14, Quận 5, TP. HCM). Đây là hệ thống rạp chiếu thứ 2 khai trương sau CGV Vincom Trà Vinh, tính từ đầu năm 2017, nhằm tiếp tục mang đến những trải nghiệm điện ảnh chất lượng cao cho khán giả yêu phim trên cả nước.', 1),
+	(12, 'CGV - Vincom Landmark 81', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1KwNoT7CrOqMe2dEL2cVYidsM2BlINvrB', 'T B1 , TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ, P.22, Q.Bình Thạnh, TP.HCM', '1900 6017', '8:00 - 23:30', 'Cũng như các cụm rạp khác trên toàn quốc, rạp Landmark81 vẫn được thiết kế theo phong cách retro cổ điển, quen thuộc. Tuy nhiên với lợi thế không gian lớn, rạp được bố trí đẹp mắt với những điểm nhấn ấn tượng đủ để khán giả đến với rạp mê mẩn và thỏa sức chụp ảnh tại bất kỳ góc nào của rạp.\r\n\\nMỗi phòng chiếu phim được trang bị hệ thống ghế ngồi êm ái, mang lại cảm giác thoải mái cho người xem khi theo dõi một tác phẩm có thời lượng khoảng hai tiếng đồng hồ. Hệ thống màn hình và âm thanh tiêu chuẩn quốc tế, mang lại những hình ảnh sắc nét và đầy cảm xúc dành cho khán giả khi theo dõi phim.', 1),
+	(13, 'CGV - Vincom Đồng Khởi', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1lyFRaP9Szi2uema8oaLSKZp8cwKezYEa', 'Tầng 3, TTTM Vincom Center B, 72 Lê Thánh Tôn, Bến Nghé, Q.1, TP.HCM', '1900 6017', '8:00 - 23:30', 'CGV Vincom Đồng Khởi đi vào hoạt động với 8 phòng chiếu được trang bị hệ thống hiện đại. Đây là một trong những hệ thống rạp chiếu nằm ở vị trí trung tâm của CGV, hứa hẹn là điểm đến thường xuyên của các tín đồ điện ảnh, cũng như là địa điểm lý tưởng để tổ chức các sự kiện sang trọng.', 1),
+	(14, 'CGV - Crescent Mall', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1trHYbZlAyxdtp6kvaZ9BWfP4bVYQd-5n', 'Lầu 5, Crescent Mall, Đại lộ Nguyễn Văn Linh, Phú Mỹ Hưng, Q.7, TP.HCM', '028 5412 2222', '8:00 - 23:30', 'CGV Crescent Mall có hệ thống phòng chiếu mới và hiện đại nhất: 8 phòng chiếu với hơn 1,200 ghế ngồi trên diện tích hơn 2000 m2. Chính sự rộng rãi đó đã mang lại một không gian hoàn toàn thoải mái cho dân ghiền phim. Hệ thống âm thanh kỹ thuật số 7.1 hỗ trợ tối đa cho các phim hành động, phiêu lưu tạo nên cảm giác sống động, chân thực.', 1),
+	(15, 'CGV - Aeon Bình Tân', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1hDFiAqpPkUbgyUEzMsQs_CE0S_yUqLn7', 'Tầng 3, TTTM Aeon Mall Bình Tân, Số 1 đường số 17A, khu phố 11, Bình Trị Đông B, Bình Tân, TP.HCM', '083 620 2299', '8:00 - 23:30', 'CGV Aeon Mall Bình Tân hoạt động tại tầng 3, nằm trong khu vực TTTM Aeon Mall Bình Tân (tổng diện tích sàn 114.000m2, Lô PT1, Hi-tech Healthcare Park, 532A Kinh Dương Vương, phường Bình Trị Đông B, Quận Bình Tân, TP.Hồ Chí Minh). Được trang bị 7 phòng chiếu hiện đại, đặc biệt là phòng chiếu STARIUM LASER, CGV Aeon Mall Bình Tân là một trong những cụm rạp lớn nhất của CJ CGV tại Việt Nam với tổng số hơn 1.200 ghế ngồi. Đây cũng hứa hẹn sẽ là một điểm sáng giải trí của người dân khu vực Bình Tân và lân cận.', 1),
+	(16, 'CGV - Thảo Điền Pearl', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1mD0wlKxehAQLuhS-cYsfrruVt2wBU4wd', 'Tầng 2, Thảo Điền Mall, 12 Quốc Hương, Thảo Điền, Q.2, TP.HCM', '028 3519 3000', '8:00 - 23:30', 'CGV Thảo Điền Pearl tọa lạc tại tầng 2 Thảo Điền Mall, số 12 Quốc Hương, phường Thảo Điền, Quận 2, Tp.HCM hoạt động với 6 phòng chiếu (4 phòng 2D, 2 phòng 3D), tổng số ghế 615. Được coi là vị trí đặc biệt kết nối cửa ngõ phía Đông với trung tâm thành phố Hồ Chí Minh, nơi giao điểm giữa các tuyến đường giao thông huyết mạch của thành phố, CGV Thảo Điền Pearl dự kiến sẽ là điểm đến thuận tiện kết nối cộng đồng những người yêu điện ảnh của thành phố mang tên Bác.', 1),
+	(17, 'CGV - Pandora City', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1LlCxE9SSvcnEghKccOG4TdclnvHG7n16', 'Lầu 3, Pandora City, 1/1 Trường Chinh, Tân Phú, TP.HCM', '028 3812 3000', '8:00 - 23:30', 'CGV Pandora City được đặt trong trung tâm mua bán phức hợp mới và hiện đại nhất tại khu vực quận Tân Phú và Tân Bình. Sự kết hợp giữa CGV Cinemas với những thương hiệu mua sắm và ẩm thực tại Pandora City sẽ mang đến cho cộng đồng sự tiện lợi khi cùng khám phá những giá trị và trải nghiệm giải trí thú vị.', 1),
+	(18, 'CGV - Hùng Vương Plaza', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1nOu6IDx0QABaonS98WwYw5YjJ-_p1sBr', 'Lầu 7, 126 Hùng Vương, Q.5, TP.HCM', '028 2222 0388', '8:00 - 23:30', 'CGV Hùng Vương Plaza là một trong số ít những trung tâm mua sắm tiện nghi và sang trọng ở Việt Nam gồm 3 tầng mua sắm với các gian hàng cao cấp của Parkson, khu food court, nhà hàng, games video và bowling cùng các tiện ích giải trí khác. CGV Cinemas nằm ở tầng 7, trung tâm mua sắm Hùng Vương. Tại đây, bạn có thể sử dụng hoặc thang máy hoặc thang cuốn để lên tầng 7.', 1),
+	(19, 'BHD - Vincom Thảo Điền', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'https://drive.google.com/uc?id=1biWOVIHq0BV-Wuafkfzk_noumY4cEvJF', 'Lầu 5, Megamall, 159 XL Hà Nội, Q.2, TP.HCM', '028 3744 6969', '8:00 - 24:00', 'Cụm rạp mới BHD Star Mega Mall Thảo Điền toạ lạc tại lầu 5 của TTTM Vincom. Với tầm vóc thương mại và thương hiệu có tiếng của các TTTM Vincom cũng như quy mô đầu tư chất lượng quốc tế của tập đoàn BHD, thì rõ ràng đây lại là một sự kết hợp tuyệt vời nữa giữa giải trí và mua sắm, thiên đường cho các gia đình và các bạn trẻ hội tụ.', 2),
+	(20, 'BHD - Vincom 3/2', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'https://drive.google.com/uc?id=1MfYJxYjZ7pGi3AJ008JQRhGbtoJvJ2MJ', 'Lầu 5, Vincom 3/2, 3C Đường 3/2, Q.10, TP.HCM', '028 6264 5820', '8:30 - 23:30', 'Tọa lạc tại tầng 4 của Trung tâm mua sắm Vincom (3C, đường 3 Tháng 2, P.12, Q.10 – TP.HCM), BHD Star Cinema có 5 phòng chiếu 2D và 3D được trang bị hệ thống âm thanh, trang thiết bị nội thất hiện đại, với tổng số ghế là 666.', 2),
+	(21, 'BHD - Vincom Quang Trung', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'https://drive.google.com/uc?id=1DZjVLmsR87S_cI8eJkq7elmuZHx1oqVE', 'B1-Vincom QT, 190 Quang Trung, Gò Vấp, TP.HCM', '028 3989 2468', '8:30 - 23:30', 'Cụm rạp BHD Star Quang Trung toạ lạc tại tầng B1, TTTM Vincom Quang Trung, 190 Quang Trung, P.10, Gò Vấp là sự kết hợp tuyệt vời giữa mô hình TTTM và giải trí. Tại đây khán giả có thể vừa thoả sức mua sắm với hệ thống siêu thị Vinmart, các gian hàng hoá/ mỹ phẩm, khu thời trang cao cấp, ẩm thực thuộc TTTM Vincom; vừa có thể tận hưởng không gian giải trí mang đậm phong cách Việt Nam nhưng lại hiện đại không kém so với quốc tế.', 2),
+	(22, 'BHD - Vincom Lê Văn Việt', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'https://drive.google.com/uc?id=1pIMnJ6p5-d5zqNRE9j1IIDny9nYVXKox', 'Lầu 4, Vincom Plaza, 50 Lê Văn Việt, Q.9, TP.HCM', '028 3736 7070', '8:30 - 23:30', 'Với quy mô 6 phòng chiếu kỹ thuật số 2D/3D và gần 1000 ghế ngồi, cụm rạp BHD Star Vincom Lê Văn Việt sẽ đón tiếp những khán giả hâm mộ điện ảnh bằng các chương trình khuyến mãi vô cùng hấp dẫn.', 2),
+	(23, 'BHD - Phạm Hùng', 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'https://drive.google.com/uc?id=1QBB-LzECZchlNXMGUyDsXexjtaqVDWNZ', 'Lầu 4, Satra Phạm Hùng, C6/27 Phạm Hùng, Bình Chánh, TP.HCM', '028 3758 9142', '8:30 - 23:30', 'Cụm rạp mới BHD Star Phạm Hùng được xây dựng theo tiêu chuẩn thiết kế nội thất hoàn toàn mới, có tổng cộng 6 phòng chiếu kỹ thuật số, bao gồm phòng chiếu 2D và 3D với tổng cộng 1050 ghế. Tất cả các phòng chiếu đều được trang bị các hệ thống máy chiếu và âm thanh tốt nhất trên thị trường.', 2),
+	(24, 'GLX - Quang Trung', 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', 'https://drive.google.com/uc?id=1e8kpARPM-NbmsJIHYL8hB3YGfBX7v331', 'Lầu 3, Co.opmart Foodcosa, 304A Quang Trung, Gò Vấp, TP.HCM', '028 3589 7899', '9:00 - 23:00', 'Galaxy Quang Trung nằm trọn lầu 3 của khu phức hợp với diện tích gần 2.500m2, có 7 phòng chiếu với 1.200 chỗ ngồi. Toàn bộ cụm rạp sử dụng các thiết bị và công nghệ tân tiến nhất trên thế giới hiện nay như công nghệ âm thanh Dolby 7.1, công nghệ hình ảnh Digital, chiếu cả phim 2D và 3D.', 3),
+	(25, 'GLX - Phạm Văn Chí', 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', 'https://drive.google.com/uc?id=1KdCqYs3IdMN1WCfPPFPpIDWEdEReOwLl', 'Lầu 5, TTTM Platinum Plaza, 634 Phạm Văn Chí, Q.6, TP.HCM', '1900 2224', '9:00 - 23:00', 'Với trang thiết bị hiện đại, màn hình rộng sắc nét và hệ thống âm thanh vòm Dolby 7.1, Galaxy Phạm Văn Chí sẽ mang đến cho khán giả những trải nghiệm sống động, đáp ứng tối đa nhu cầu thưởng thức phim ảnh. Với không gian rạp trẻ trung, đội ngũ nhân viên thân thiện, Galaxy Phạm Văn Chí sẽ là điểm đến mới của giới trẻ khu vực quận 6, quận 5, quận 8, quận Bình Tân và huyện Bình Chánh.', 3),
+	(26, 'GLX - Kinh Dương Vương', 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', 'https://drive.google.com/uc?id=1jCIC6sToZ5sedEX_lcfdQ271P1u9Umb0', '718bis Kinh Dương Vương, Q.6, TP.HCM', '028 3817 2398', '9:00 - 23:00', 'Với quy mô 7 phòng chiếu được thiết kế theo đúng chuẩn quốc tế, ghế ngồi được các nhà thiết kế rạp đầy kinh nghiệm thiết kế với khoảng cách rộng rãi, có độ nhún tạo cảm giác thư giãn như ở nhà. Điều đặc biệt mà Galaxy Cinema đem đến cho khán giả là tất cả các phòng chiếu đều được trang bị những thiết bị hiện đại nhất hiện nay: âm thanh Dolby 7.1, màn hình chiếu kỹ thuật 3D và Digital vô cùng mịn, sắc nét đến từng phút giây.', 3),
+	(27, 'Lotte - Cộng Hòa', 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'https://drive.google.com/uc?id=1kR-hjEKQWdAWIO_Q04Z7gc_RLO66AiFx', 'Lầu 4, Pico Plaza, 20 Cộng Hòa, Tân Bình, TP.HCM', '028 3811 6333', '8:00 - 24:00', 'Lotte Cinema Cộng Hoà là cụm rạp thứ 8 của hệ thống rạp Lotte Cinema. Cụm rạp này bao gồm 6 phòng chiếu cao cấp, sở hữu đầy đủ các tính năng mới nhất của điện ảnh thế giới như Dolby Atmos, công nghệ màn ảnh Digital, ghế đôi (couple-seat) cao cấp, và đặc biệt, đây là cụm rạp đầu tiên tại Việt Nam có phòng chờ dành cho những khách hàng V.I.P.', 4),
+	(28, 'Lotte - Diamond', 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'https://drive.google.com/uc?id=1PgXMr8bf02WE6D8rL9BU3dtJmeM543nj', 'Lầu 13, Diamond Plaza, 34 Lê Duẩn, Q.1, TP.HCM', '028 3811 6333', '8:00 - 24:00', 'Cũng với thiết kế đặc trưng của các cụm rạp Lotte như sàn trải thảm đỏ, ghế ngồi chờ giống quầy bar, nhưng cụm rạp Lotte Diamond có diện tích khả nhỏ và không có độ lộng lẫy “Hollywood” nếu so với cụm rạp Lotte Nam Sài Gòn.', 4),
+	(29, 'Lotte - Phú Thọ', 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'https://drive.google.com/uc?id=1FmzWHe6aSB_8diKGt2zcGgG6oCK1c1sI', 'Lầu 4, Lotte Mart Phú Thọ, Q.11, TP.HCM', '028 6264 2603', '8:00 - 24:00', 'Lotte Cinema Phú Thọ là cụm rạp thứ 12 của Lotte Cinema Việt Nam. Lotte Cinema Phú Thọ có 4 phòng chiếu 2D và 3D hiện đại, hình ảnh sống động, sắc nét với hệ thống âm thanh Dobby Surround tạo hiệu ứng điện ảnh tuyệt vời.', 4);
 /*!40000 ALTER TABLE `cinemas` ENABLE KEYS */;
+
+-- Dumping structure for table booking_tickets.cineplex
+DROP TABLE IF EXISTS `cineplex`;
+CREATE TABLE IF NOT EXISTS `cineplex` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `icon_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table booking_tickets.cineplex: ~8 rows (approximately)
+/*!40000 ALTER TABLE `cineplex` DISABLE KEYS */;
+INSERT INTO `cineplex` (`id`, `icon_url`, `name`) VALUES
+	(1, 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'CGV Cinemas'),
+	(2, 'https://drive.google.com/uc?id=1Fuk60XPv5ga18G1tblcMv1LP5wqNKQuo', 'BHD Star Cineplex'),
+	(3, 'https://drive.google.com/uc?id=1rk9g8_RcsUaqMi9BIzFcCICkSndbawHz', 'Galaxy Cinema'),
+	(4, 'https://drive.google.com/uc?id=1bthl6vmz7B62oyRj9A5gohb8RypBovjB', 'Lotte Cinema'),
+	(5, 'https://drive.google.com/uc?id=1q85L57gmNfTp25p7wlgUo-5WSajqNzpF', 'CineStar'),
+	(6, 'https://drive.google.com/uc?id=17-aQUOfjscXp2b8HDozTB86LnXflz83D', 'Mega GS'),
+	(7, 'https://drive.google.com/uc?id=1GwEzMWR_uaePfL3aGDqJcBP1S41-Dy5q', 'DDC - Đống Đa'),
+	(8, 'https://drive.google.com/uc?id=1XVxfIUhuAdUrYoxTFqg9D3hJsJFYXBB-', 'Cụm rạp khác');
+/*!40000 ALTER TABLE `cineplex` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.combos
 DROP TABLE IF EXISTS `combos`;
@@ -226,47 +309,23 @@ CREATE TABLE IF NOT EXISTS `events` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `organizer` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `release_date` datetime NOT NULL,
+  `organizer` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` int(10) unsigned NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.events: ~7 rows (approximately)
+-- Dumping data for table booking_tickets.events: ~6 rows (approximately)
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` (`id`, `name`, `img_url`, `organizer`, `type`, `description`) VALUES
-	(1, 'Việt Nam - Jordan', 'https://drive.google.com/uc?id=1FuLliJ8w-yR-iMZ5ZLeD17bNDcU-jOPu', 'Liên đoàn Bóng đá Việt Nam  - VFF', 'Thể Thao', 'ĐTQG VIỆT NAM -  ĐTQG JORDAN | BẢNG C - VÒNG LOẠI ASIAN CUP 2019'),
-	(2, 'Việt Nam - Philipines', 'https://drive.google.com/uc?id=1W-RyEA_Z8SrKzClKS4HXUO3QWFBIvLyQ', 'Liên đoàn Bóng đá Việt Nam  - VFF', 'Thể Thao', 'ĐTQG VIỆT NAM -  ĐTQG PHILIPINES | VÒNG BÁN KẾT LƯỢT ĐI AFF SUZUKI CUP 2018'),
-	(3, 'Hà Nội - Bình Dương', 'https://drive.google.com/uc?id=1rE2C61lDtkXN8hc8jktD7Qv_U1SOVMz3', 'Công ty Cổ phần Bóng đá chuyên nghiệp Việt Nam - V', 'Thể Thao', 'Hà Nội và cơ hội đòi nợ Bình Dương ở Siêu Cup quốc gia 2019'),
-	(4, 'Việt Nam - Malaysia', 'https://drive.google.com/uc?id=1vQwy0JQm8H-uUp7qNiljjykLxeob9oxb', 'Liên đoàn Bóng đá Việt Nam  - VFF', 'Thể Thao', 'ĐTQG VIỆT NAM -  ĐTQG MALAYSIA | VÒNG BẢNG AFF SUZUKI CUP 2018'),
-	(5, 'Việt Nam - Indonesia', 'https://drive.google.com/uc?id=19qcCvhHvgaN5zvjApcKcWhZz8prfkgHI', 'Liên đoàn Bóng đá thế giới - FIFA', 'Thể Thao', 'Giải World - Friendlies'),
-	(6, 'Việt Nam - Nhật Bản', 'https://drive.google.com/uc?id=1rbwAJcaanCIVxUqFyPgrC7Nt1yq-FHHU', 'Liên đoàn bóng đá châu Á - AFC', 'Thể Thao', 'Giải Asian Cup 2019'),
-	(7, 'Việt Nam - Yamen', 'https://drive.google.com/uc?id=1Nbe-tKBs069_-a1JMyh-4DwW8McWJv9l', 'Liên đoàn bóng đá châu Á - AFC', 'Thể Thao', 'Giải Asian Cup 2019');
+INSERT INTO `events` (`id`, `name`, `img_url`, `release_date`, `organizer`, `type`, `description`) VALUES
+	(1, 'Việt Nam - Jordan', 'https://drive.google.com/uc?id=1FuLliJ8w-yR-iMZ5ZLeD17bNDcU-jOPu', '2019-06-13 19:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG VIỆT NAM -  ĐTQG JORDAN | BẢNG C - VÒNG LOẠI ASIAN CUP 2019'),
+	(2, 'Việt Nam - Philipines', 'https://drive.google.com/uc?id=1W-RyEA_Z8SrKzClKS4HXUO3QWFBIvLyQ', '2019-06-16 19:30:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG VIỆT NAM -  ĐTQG PHILIPINES | VÒNG BÁN KẾT LƯỢT ĐI AFF SUZUKI CUP 2018'),
+	(3, 'Hà Nội - Bình Dương', 'https://drive.google.com/uc?id=1rE2C61lDtkXN8hc8jktD7Qv_U1SOVMz3', '2019-06-19 16:00:00', 'Công ty Cổ phần Bóng đá chuyên nghiệp Việt Nam - VPF', 0, 'Hà Nội và cơ hội đòi nợ Bình Dương ở Siêu Cup quốc gia 2019'),
+	(4, 'Việt Nam - Malaysia', 'https://drive.google.com/uc?id=1vQwy0JQm8H-uUp7qNiljjykLxeob9oxb', '2019-06-22 16:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG VIỆT NAM -  ĐTQG MALAYSIA | VÒNG BẢNG AFF SUZUKI CUP 2018'),
+	(5, 'Việt Nam - Indonesia', 'https://drive.google.com/uc?id=19qcCvhHvgaN5zvjApcKcWhZz8prfkgHI', '2019-06-25 16:30:00', 'Liên đoàn Bóng đá thế giới - FIFA', 0, 'Giải World - Friendlies'),
+	(6, 'Việt Nam - Nhật Bản', 'https://drive.google.com/uc?id=1rbwAJcaanCIVxUqFyPgrC7Nt1yq-FHHU', '2019-06-25 17:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
-
--- Dumping structure for table booking_tickets.event_showings
-DROP TABLE IF EXISTS `event_showings`;
-CREATE TABLE IF NOT EXISTS `event_showings` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id` int(10) unsigned NOT NULL,
-  `venue_id` int(10) unsigned NOT NULL,
-  `price` double unsigned NOT NULL,
-  `status` int(10) unsigned NOT NULL,
-  `release_date` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_EVENT_SHOWINGS_EVENTS` (`event_id`),
-  KEY `FK_EVENT_SHOWINGS_VENUES` (`venue_id`),
-  CONSTRAINT `FK_EVENT_SHOWINGS_EVENTS` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_EVENT_SHOWINGS_VENUES` FOREIGN KEY (`venue_id`) REFERENCES `venues` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table booking_tickets.event_showings: ~3 rows (approximately)
-/*!40000 ALTER TABLE `event_showings` DISABLE KEYS */;
-INSERT INTO `event_showings` (`id`, `event_id`, `venue_id`, `price`, `status`, `release_date`) VALUES
-	(1, 1, 1, 100000, 0, '2018-06-13 19:00:00'),
-	(2, 2, 2, 150000, 0, '2018-12-06 19:30:00'),
-	(3, 3, 3, 150000, 0, '2019-02-16 16:00:00');
-/*!40000 ALTER TABLE `event_showings` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.locations
 DROP TABLE IF EXISTS `locations`;
@@ -276,9 +335,9 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `total_seats` int(10) unsigned NOT NULL,
   `type` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
--- Dumping data for table booking_tickets.locations: ~21 rows (approximately)
+-- Dumping data for table booking_tickets.locations: ~24 rows (approximately)
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
 INSERT INTO `locations` (`id`, `name`, `total_seats`, `type`) VALUES
 	(1, 'Sân vận động Thống Nhất', 15000, 1),
@@ -301,7 +360,10 @@ INSERT INTO `locations` (`id`, `name`, `total_seats`, `type`) VALUES
 	(18, 'Phòng chiếu CB-03', 100, 0),
 	(19, 'Phòng chiếu MGS-01', 100, 0),
 	(20, 'Phòng chiếu MGS-02', 100, 0),
-	(21, 'Phòng chiếu MGS-03', 100, 0);
+	(21, 'Phòng chiếu MGS-03', 100, 0),
+	(22, 'Sân vận động Gò Đậu', 18250, 1),
+	(23, 'Sân vận động Chi Lăng', 30000, 1),
+	(24, 'Sân vận động Cần Thơ', 60000, 1);
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.movies
@@ -725,6 +787,60 @@ INSERT INTO `notifications` (`id`, `img_url`, `title`, `brief`, `content`, `type
 	(3, 'https://drive.google.com/uc?id=1VodtW9fPmC6nHyxSuZ8B0TSYDKrx5Rt8', '[Galaxy Tràng Thi] Trải Nghiệm Bom Tấn Càng Đông Càng Vui', 'Chương trình ưu đãi không thể bỏ qua!!! Nhân dịp khai trương cụm rạp Galaxy Tràng Thi', 'Nhân dịp khai trương cụm rạp <b>Galaxy Tràng Thi</b>, Galaxy Cinema dành tặng các Stars chương trình ưu đãi đầy hấp dẫn không thể bỏ qua trong thời gian từ <b>27/04 - 03/05/2019</b>.\nCụ thể, khi các Stars mua <b>02 vé xem phim</b> tại Galaxy Tràng Thi (bao gồm: mua trực tiếp tại quầy và online) sẽ nhận được <b>01 Movie voucher</b>.\n<b>Điều kiện áp dụng:</b>\n- Chương trình chỉ áp dụng cho thành viên G-star.\n- Chương trình không áp dụng cho Movie voucher.\n- Trong mọi trường hợp, quyết định của Galaxy Cinema là quyết định cuối cùng.\n<b>Đối với Movie voucher được tặng:</b>\n- Movie voucher có thời hạn sử dụng từ ngày 13/05 - 13/06/2019.\n- Chỉ được áp dụng cho giao dịch trực tiếp tại quầy vé và khi mua kèm với 01 vé xem phim cùng suất chiếu.\n- Mỗi giao dịch chỉ được sử dụng tối đa 01 Movie voucher.\n- 01 Movie voucher có giá trị tương ứng với 01 vé xem phim 2D.\n- Movie voucher không áp dụng trong ngày lễ, Tết, ngày Tri ân, Happy Day và các suất chiếu sớm.\n- Movie voucher không có giá trị khi bị rách, tẩy xoá, hư hỏng hoặc không có đóng dấu.\n- Voucher không có giá trị quy đổi thành tiền mặt.', 1, '2019-04-20 16:00:00');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 
+-- Dumping structure for table booking_tickets.sales
+DROP TABLE IF EXISTS `sales`;
+CREATE TABLE IF NOT EXISTS `sales` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `event_id` int(10) unsigned NOT NULL,
+  `venue_id` int(10) unsigned NOT NULL,
+  `unit_id` int(10) unsigned NOT NULL,
+  `price` double unsigned NOT NULL,
+  `status` int(10) unsigned NOT NULL,
+  `start_date_sale` datetime NOT NULL,
+  `end_date_sale` datetime NOT NULL,
+  `block_id` int(10) unsigned NOT NULL,
+  `gateway` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `number_of_tickets` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_EVENT_SHOWINGS_EVENTS` (`event_id`),
+  KEY `FK_EVENT_SHOWINGS_VENUES` (`venue_id`),
+  KEY `FK_SALES_BLOCKS` (`block_id`),
+  KEY `FK_SALES_UNITS` (`unit_id`),
+  CONSTRAINT `FK_SALES_BLOCKS` FOREIGN KEY (`block_id`) REFERENCES `blocks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SALES_EVENTS` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SALES_UNITS` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SALES_VENUES` FOREIGN KEY (`venue_id`) REFERENCES `venues` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table booking_tickets.sales: ~24 rows (approximately)
+/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
+INSERT INTO `sales` (`id`, `event_id`, `venue_id`, `unit_id`, `price`, `status`, `start_date_sale`, `end_date_sale`, `block_id`, `gateway`, `number_of_tickets`) VALUES
+	(1, 1, 1, 1, 100000, 0, '2019-06-06 09:00:00', '2019-06-12 12:00:00', 1, 'Cửa A', 100),
+	(2, 1, 1, 1, 100000, 0, '2019-06-06 09:00:00', '2019-06-12 12:00:00', 2, 'Cửa B', 100),
+	(3, 1, 1, 1, 100000, 0, '2019-06-06 09:00:00', '2019-06-12 12:00:00', 3, 'Cửa C', 100),
+	(4, 1, 1, 1, 100000, 0, '2019-06-06 09:00:00', '2019-06-12 12:00:00', 4, 'Cửa D', 100),
+	(5, 2, 2, 1, 150000, 0, '2019-06-09 08:00:00', '2019-06-15 16:00:00', 5, 'Cửa A', 100),
+	(6, 2, 2, 1, 150000, 0, '2019-06-09 08:00:00', '2019-06-15 16:00:00', 6, 'Cửa B', 100),
+	(7, 2, 2, 1, 150000, 0, '2019-06-09 08:00:00', '2019-06-15 16:00:00', 7, 'Cửa C', 100),
+	(8, 2, 2, 1, 150000, 0, '2019-06-09 08:00:00', '2019-06-15 16:00:00', 8, 'Cửa D', 100),
+	(9, 3, 3, 1, 150000, 0, '2019-06-12 09:30:00', '2019-06-18 15:30:00', 9, 'Cửa A', 100),
+	(10, 3, 3, 1, 150000, 0, '2019-06-12 09:30:00', '2019-06-18 15:30:00', 10, 'Cửa B', 100),
+	(11, 3, 3, 1, 150000, 0, '2019-06-12 09:30:00', '2019-06-18 15:30:00', 11, 'Cửa C', 100),
+	(12, 3, 3, 1, 150000, 0, '2019-06-12 09:30:00', '2019-06-18 15:30:00', 12, 'Cửa D', 100),
+	(13, 4, 4, 1, 200000, 0, '2019-06-15 09:00:00', '2019-06-21 12:00:00', 13, 'Cửa A', 100),
+	(14, 4, 4, 1, 200000, 0, '2019-06-15 09:00:00', '2019-06-21 12:00:00', 14, 'Cửa B', 100),
+	(15, 4, 4, 1, 200000, 0, '2019-06-15 09:00:00', '2019-06-21 12:00:00', 15, 'Cửa C', 100),
+	(16, 4, 4, 1, 200000, 0, '2019-06-15 09:00:00', '2019-06-21 12:00:00', 16, 'Cửa D', 100),
+	(17, 5, 5, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 17, 'Cửa A', 100),
+	(18, 5, 5, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 18, 'Cửa B', 100),
+	(19, 5, 5, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 19, 'Cửa C', 100),
+	(20, 5, 5, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 20, 'Cửa D', 100),
+	(21, 6, 6, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 21, 'Cửa A', 100),
+	(22, 6, 6, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 22, 'Cửa B', 100),
+	(23, 6, 6, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 23, 'Cửa C', 100),
+	(24, 6, 6, 1, 180000, 0, '2019-06-18 10:00:00', '2019-06-24 17:00:00', 24, 'Cửa D', 100);
+/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
+
 -- Dumping structure for table booking_tickets.seats
 DROP TABLE IF EXISTS `seats`;
 CREATE TABLE IF NOT EXISTS `seats` (
@@ -739,7 +855,7 @@ CREATE TABLE IF NOT EXISTS `seats` (
   KEY `FK_SEATS_BLOCKS` (`block_id`),
   CONSTRAINT `FK_SEATS_BLOCKS` FOREIGN KEY (`block_id`) REFERENCES `blocks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_SEATS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2161 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.seats: ~2.160 rows (approximately)
 /*!40000 ALTER TABLE `seats` DISABLE KEYS */;
@@ -2903,8 +3019,24 @@ INSERT INTO `seats` (`id`, `row`, `number`, `type`, `location_id`, `block_id`) V
 	(2157, 'J', '9', 0, 21, NULL),
 	(2158, 'J', '10', 0, 21, NULL),
 	(2159, 'J', '11', 0, 21, NULL),
-	(2160, 'J', '12', 0, 21, NULL);
+	(2160, 'J', '12', 0, 21, NULL),
+	(2161, 'A', '1', 1, 1, 1);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
+
+-- Dumping structure for table booking_tickets.units
+DROP TABLE IF EXISTS `units`;
+CREATE TABLE IF NOT EXISTS `units` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table booking_tickets.units: ~1 rows (approximately)
+/*!40000 ALTER TABLE `units` DISABLE KEYS */;
+INSERT INTO `units` (`id`, `name`, `icon_url`) VALUES
+	(1, 'VFF', 'https://drive.google.com/uc?id=1IX6-5F5ju9s71TG00Td5iMmkvxdntIik');
+/*!40000 ALTER TABLE `units` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.users
 DROP TABLE IF EXISTS `users`;
@@ -2936,19 +3068,24 @@ INSERT INTO `users` (`id`, `full_name`, `gender`, `birthday`, `email`, `phone`, 
 DROP TABLE IF EXISTS `venues`;
 CREATE TABLE IF NOT EXISTS `venues` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `view_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `introduce` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `location_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_VENUES_LOCATIONS` (`location_id`),
   CONSTRAINT `FK_VENUES_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.venues: ~3 rows (approximately)
+-- Dumping data for table booking_tickets.venues: ~6 rows (approximately)
 /*!40000 ALTER TABLE `venues` DISABLE KEYS */;
-INSERT INTO `venues` (`id`, `address`, `location_id`) VALUES
-	(1, '138 Đào Duy Từ, Phường 6, Quận 10, Hồ Chí Minh', 1),
-	(2, 'Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội', 2),
-	(3, 'Sân vận động Hàng Đẫy, Số 9 Trịnh Hoài Đức, Cát Linh, Đống Đa, Hà Nội', 3);
+INSERT INTO `venues` (`id`, `view_url`, `address`, `introduce`, `location_id`) VALUES
+	(1, 'https://drive.google.com/uc?id=17MpIo-YUUiSXFMyWJNyz-bqWyahPz_sc', '138 Đào Duy Từ, Phường 6, Quận 10, Hồ Chí Minh', 'Sân vận động Thống Nhất là một sân vận động nằm ở số 138 Đào Duy Từ, Phường 6, Quận 10, Thành phố Hồ Chí Minh. Trung tâm tổ chức nhiều sự kiện lớn của các giải thi đấu thể thao trong và ngoài nước. Là sân vận động gắn liền với cả nền bóng đá của Việt Nam chứ không riêng gì với bóng đá Sài Gòn, có lịch sử lâu đời nhất Việt Nam và được gắn liền với môn thể thao bóng đá từ thời Pháp thuộc. Được khánh thành vào ngày 18 tháng 10 năm 1931. Và kể từ đây, sân vận động là nơi diễn ra nhiều trận thi đấu bóng đá lớn nhỏ khác nhau. Sân được chỉnh trang và nâng cấp lớn theo tiêu chuẩn quốc tế với sức chứa lên đến 25.000 người, trang thiết bị được đầu tư hiện đại.', 1),
+	(2, 'https://drive.google.com/uc?id=1OB_YFSQCe4i3VnjRoUVifDVKH9CMjaff', 'Đường Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội', 'Sân vận động Mỹ Đình chính thức hoạt động ngày 2 tháng 9 năm 2003 với trận đấu đầu tiên giữa đội U23 Việt Nam với câu lạc bộ bóng đá Thân Hoa Thượng Hải (Shanghai Shenhua) (Trung Quốc). Đây là sân vận động chính tổ chức SEA Games 22 năm 2003 với lễ khai mạc và bế mạc, các trận thi đấu của môn bóng đá nam và các cuộc tranh tài trong môn điền kinh. Sân vận động Mỹ Đình còn là nơi tổ chức lễ khai mạc Đại hội Thể thao Trong nhà châu Á lần thứ III (tiếng Anh: Asian Indoor Games III) từ ngày 30 tháng 10 năm 2009 đến 8 tháng 11. Vào tháng 7 năm 2007, sân vận động Quốc gia Mỹ Đình là một trong những sân vận động trong 4 nước đăng cai giải tham gia tổ chức Cúp bóng đá châu Á 2007 với 5 trận vòng bảng (bảng B), 1 trận tứ kết và 1 trận bán kết.', 2),
+	(3, 'https://drive.google.com/uc?id=1l6G1Wj9DzlRCp6QWnSww8eblTUqOBZ-i', 'Số 9 Trịnh Hoài Đức, Cát Linh, Đống Đa, Hà Nội', 'Sân vận động Hàng Đẫy là một sân vận động nằm ở đường Trịnh Hoài Đức, Hà Nội, Việt Nam với sức chứa khoảng 22.500 chỗ ngồi. Trước khi có Sân vận động Quốc gia Mỹ Đình, Hàng Đẫy là nơi tổ chức các trận thi đấu của Đội tuyển bóng đá quốc gia Việt Nam cũng như các đội tuyển nữ, Olympic. Đây cũng là nơi tổ chức nhiều sự kiện thể thao, văn hóa của Hà Nội và Việt Nam. Năm 1998, các trận khai mạc, bảng B và chung kết Cúp Tiger đã diễn ra tại đây.\\nTrong khoảng thời gian từ năm 2000 đến năm 2005, sân vận động Hàng Đẫy được đổi tên thành sân vận động Hà Nội.\\nSân vận động Hàng Đẫy hiện là sân nhà của Hà Nội, Viettel.', 3),
+	(4, 'https://drive.google.com/uc?id=11mNCfZE_arC_UJjn1JqQS4zvoI42ES3n', 'Đường 30/4 và Đại lộ Bình Dương, Thủ Dầu Một, Bình Dương', 'Sân vận động Gò Đậu (tỉnh Bình Dương) là một sân bóng đá có diện tích hơn 4 ha, nằm tại góc đường 30/4 và Đại lộ Bình Dương (trung tâm TP. Thủ Dầu Một). Sân có 4 khán đài với sức chứa khoảng 18.250 chỗ ngồi. Đây là sân nhà của câu lạc bộ Becamex Bình Dương, hiện đang thi đấu tại Giải bóng đá vô địch quốc gia và TDC Bình Dương.', 22),
+	(5, 'https://drive.google.com/uc?id=1t8pK5m_BAxvFb1DSYiocXU185rB1pmtU', '38 Ngô Gia Tự, Quận Hải Châu, Đà Nẵng', 'Chi Lăng là một sân vận động đa chức năng tại Đà Nẵng, Việt Nam. Trước đây, sân được sử dụng chủ yếu cho các trận đấu bóng đá và là sân nhà của CLB SHB Đà Nẵng và các hoạt động thể thao tại Đà Nẵng. Sân có sức chứa 30.000 chỗ ngồi.Hiện nay, sân đã được chuyển giao lại cho UBND Thành Phố Đà Nẵng sở hữu.', 23),
+	(6, 'https://drive.google.com/uc?id=1oy0Aath5VWnOhvedzWPBpNHggTx3XLOE', 'Ven bờ sông Hậu, cạnh bến phà Cần Thơ cũ, trên đường Lê Lợi, phường Cái Khế, quận Ninh Kiều, thành phố Cần Thơ', 'Sân vận động Cần Thơ  là một sân vận động bóng đá tại Quận Ninh Kiều, Thành phố Cần Thơ. Đây là sân vận động có sức chứa lớn nhất ở Việt Nam (hơn cả sân Mỹ Đình) với 60.000 chỗ. Sân vận động không chỉ tổ chức bóng đá mà còn tổ chức giải đua xe môtô.', 24);
 /*!40000 ALTER TABLE `venues` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

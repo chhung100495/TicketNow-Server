@@ -25,6 +25,7 @@ router.get('/account/:id', (req, res) => {
                                             imgURL: rows[i].imgURL,
                                             cinemaName: rows[i].cinemaName,
                                             runningTime: rows[i].runningTime,
+                                            genre: rows[i].genre,
                                             iconURL: rows[i].iconURL,
                                             address: rows[i].address,
                                             room: rows[i].room,

@@ -51,6 +51,7 @@
 	(body: {
 		"account_id": 1,
 		"movie_showings_id": 1,
+		"type": 0,
 		"location_id": 1,
 		"bookedSeats": [
 			{
