@@ -22,6 +22,7 @@ router.get('/account/:id', (req, res) => {
                                             movieName: rows[i].movieName,
                                             minAge: rows[i].minAge,
                                             type: rows[i].type,
+                                            movieType: rows[i].movieType,
                                             imgURL: (rows[i].type == 0 ? rows[i].movieImgURL : rows[i].eventImgURL),
                                             cinemaName: rows[i].cinemaName,
                                             runningTime: rows[i].runningTime,

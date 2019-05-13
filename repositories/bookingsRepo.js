@@ -24,7 +24,7 @@ exports.loadByAccountID = function(id) {
     var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as movieImgURL, m.running_time as runningTime, m.genre,
         c.name as cinemaName, c.icon_url as cinemaIconURL, c.address,
         l.name as room,
-        ms.type, ms.release_date as movieReleaseDate, ms.time,
+        ms.type as movieType, ms.release_date as movieReleaseDate, ms.time,
         bk.code, bk.id, bk.type,
         s.row, s.number,
         ev.name as eventName, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.organizer, ev.description,
