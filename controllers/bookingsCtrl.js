@@ -35,7 +35,7 @@ router.get('/account/:id', (req, res) => {
                                             iconURL: (rows[i].type == 0 ? rows[i].cinemaIconURL : rows[i].unitIconURL),
                                             releaseDate: (rows[i].type == 0 ? rows[i].movieReleaseDate : rows[i].eventReleaseDate),
                                             eventName: rows[i].eventName,
-                                            eventType: rows[i].eventType,
+                                            eventCategory: rows[i].eventCategory,
                                             unitName: rows[i].unitName,
                                             gateway: rows[i].gateway,
                                             organizer: rows[i].organizer,
