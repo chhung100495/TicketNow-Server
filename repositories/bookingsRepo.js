@@ -22,7 +22,7 @@ exports.loadSingle = function(bookingID, accountID) {
 
 exports.loadByAccountID = function(id) {
     var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as movieImgURL, m.running_time as runningTime, m.genre,
-        c.name as cinemaName, c.icon_url as cinemaIconURL, c.address,
+        c.name as cinemaName, c.icon_url as cinemaIconURL, c.address as cinemaAddress,
         l.name as room,
         ms.type as movieType, ms.release_date as movieReleaseDate, ms.time,
         bk.code, bk.id, bk.type,
@@ -30,6 +30,7 @@ exports.loadByAccountID = function(id) {
         ev.name as eventName, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.organizer, ev.description,
         sl.gateway,
         u.name as unitName, u.icon_url as unitIconURL,
+        v.address as venueAddress,
         b.name as block
         FROM bookings as bk
         INNER JOIN booked_seats as bs ON bs.booking_id = bk.id
