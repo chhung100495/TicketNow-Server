@@ -309,7 +309,8 @@ CREATE TABLE IF NOT EXISTS `events` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `release_date` datetime NOT NULL,
+  `release_date` date NOT NULL,
+  `time` time NOT NULL,
   `organizer` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category` int(10) unsigned NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -318,13 +319,13 @@ CREATE TABLE IF NOT EXISTS `events` (
 
 -- Dumping data for table booking_tickets.events: ~6 rows (approximately)
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` (`id`, `name`, `img_url`, `release_date`, `organizer`, `category`, `description`) VALUES
-	(1, 'Việt Nam vs. Jordan', 'https://drive.google.com/uc?id=1FuLliJ8w-yR-iMZ5ZLeD17bNDcU-jOPu', '2019-06-13 19:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs.  ĐTQG Jordan | Bảng C - Vòng loại Asian Cup 2019'),
-	(2, 'Việt Nam vs. Philipines', 'https://drive.google.com/uc?id=1W-RyEA_Z8SrKzClKS4HXUO3QWFBIvLyQ', '2019-06-16 19:30:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs. ĐTQG Philipines | Vòng bán kết lượt đi AFF Suzuki Cup 2019'),
-	(3, 'Hà Nội vs. Bình Dương', 'https://drive.google.com/uc?id=1rE2C61lDtkXN8hc8jktD7Qv_U1SOVMz3', '2019-06-19 16:00:00', 'Công ty Cổ phần Bóng đá chuyên nghiệp Việt Nam - VPF', 0, 'Hà Nội và cơ hội đòi nợ Bình Dương ở Siêu Cup quốc gia 2019'),
-	(4, 'Việt Nam vs. Malaysia', 'https://drive.google.com/uc?id=1vQwy0JQm8H-uUp7qNiljjykLxeob9oxb', '2019-06-22 16:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam-  ĐTQG Malaysia | Vòng bảng AFF Suzuki Cup 2019'),
-	(5, 'Việt Nam vs. Indonesia', 'https://drive.google.com/uc?id=19qcCvhHvgaN5zvjApcKcWhZz8prfkgHI', '2019-06-25 16:30:00', 'Liên đoàn Bóng đá thế giới - FIFA', 0, 'Giải World - Friendlies'),
-	(6, 'Việt Nam vs. Nhật Bản', 'https://drive.google.com/uc?id=1rbwAJcaanCIVxUqFyPgrC7Nt1yq-FHHU', '2019-06-25 17:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019');
+INSERT INTO `events` (`id`, `name`, `img_url`, `release_date`, `time`, `organizer`, `category`, `description`) VALUES
+	(1, 'Việt Nam vs. Jordan', 'https://drive.google.com/uc?id=1FuLliJ8w-yR-iMZ5ZLeD17bNDcU-jOPu', '2019-06-13', '19:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs.  ĐTQG Jordan | Bảng C - Vòng loại Asian Cup 2019'),
+	(2, 'Việt Nam vs. Philipines', 'https://drive.google.com/uc?id=1W-RyEA_Z8SrKzClKS4HXUO3QWFBIvLyQ', '2019-06-16', '19:30:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs. ĐTQG Philipines | Vòng bán kết lượt đi AFF Suzuki Cup 2019'),
+	(3, 'Hà Nội vs. Bình Dương', 'https://drive.google.com/uc?id=1rE2C61lDtkXN8hc8jktD7Qv_U1SOVMz3', '2019-06-19', '16:00:00', 'Công ty Cổ phần Bóng đá chuyên nghiệp Việt Nam - VPF', 0, 'Hà Nội và cơ hội đòi nợ Bình Dương ở Siêu Cup quốc gia 2019'),
+	(4, 'Việt Nam vs. Malaysia', 'https://drive.google.com/uc?id=1vQwy0JQm8H-uUp7qNiljjykLxeob9oxb', '2019-06-22', '16:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam-  ĐTQG Malaysia | Vòng bảng AFF Suzuki Cup 2019'),
+	(5, 'Việt Nam vs. Indonesia', 'https://drive.google.com/uc?id=19qcCvhHvgaN5zvjApcKcWhZz8prfkgHI', '2019-06-25', '16:30:00', 'Liên đoàn Bóng đá thế giới - FIFA', 0, 'Giải World - Friendlies'),
+	(6, 'Việt Nam vs. Nhật Bản', 'https://drive.google.com/uc?id=1rbwAJcaanCIVxUqFyPgrC7Nt1yq-FHHU', '2019-06-25', '17:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.locations
