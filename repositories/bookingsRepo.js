@@ -27,7 +27,7 @@ exports.loadByAccountID = function(id) {
         ms.type as movieType, ms.release_date as movieReleaseDate, ms.time,
         bk.code, bk.id, bk.type,
         s.row, s.number,
-        ev.name as eventName, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.organizer, ev.description,
+        ev.name as eventName, ev.type as eventType, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.organizer, ev.description,
         sl.gateway,
         u.name as unitName, u.icon_url as unitIconURL,
         v.address as venueAddress,
