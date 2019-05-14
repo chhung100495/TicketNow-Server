@@ -6,6 +6,9 @@ var bookedSeatsCtrl = require('./controllers/bookedSeatsCtrl');
 var bookedCombosCtrl = require('./controllers/bookedCombosCtrl');
 var seatsCtrl = require('./controllers/seatsCtrl');
 var notificationsCtrl = require('./controllers/notificationsCtrl');
+var cineplexCtrl = require('./controllers/cineplexCtrl');
+var venuesCtrl = require('./controllers/venuesCtrl');
+var eventsCtrl = require('./controllers/eventsCtrl');
 
 var express = require('express'),
     morgan = require('morgan'),
@@ -31,3 +34,6 @@ app.use('/bookedSeats', bookedSeatsCtrl);
 app.use('/bookedCombos', bookedCombosCtrl);
 app.use('/seats', seatsCtrl);
 app.use('/notifications', notificationsCtrl);
+app.use('/cineplex', cineplexCtrl);
+app.use('/venues', venuesCtrl);
+app.use('/events', eventsCtrl);

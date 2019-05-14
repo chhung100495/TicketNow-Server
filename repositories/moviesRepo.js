@@ -14,10 +14,21 @@ exports.loadShowing = function() {
 }
 
 exports.loadMostFavorite = function() {
-    var sql = `SELECT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
+    var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
         FROM movies as m
+        INNER JOIN movie_showings as ms ON ms.movie_id = m.id
         ORDER BY m.score DESC
         LIMIT 3`;
+    return db.load(sql);
+}
+
+exports.loadAllMostFavorite = function(pageNo, size) {
+    var skip = size * (pageNo - 1);
+    var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
+        FROM movies as m
+        INNER JOIN movie_showings as ms ON ms.movie_id = m.id
+        ORDER BY m.score DESC
+        LIMIT ${size} OFFSET ${skip}`;
     return db.load(sql);
 }
 
@@ -25,6 +36,15 @@ exports.loadCommingSoon = function() {
     var sql = `SELECT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
         FROM movies as m
         WHERE CURDATE() < m.initial_release`;
+    return db.load(sql);
+}
+
+exports.loadAllCommingSoon = function(pageNo, size) {
+    var skip = size * (pageNo - 1);
+    var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
+        FROM movies as m
+        WHERE CURDATE() < m.initial_release
+        LIMIT ${size} OFFSET ${skip}`;
     return db.load(sql);
 }
 
