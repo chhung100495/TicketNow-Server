@@ -5,25 +5,17 @@ exports.loadAll = function() {
     return db.load(sql);
 }
 
-exports.loadHotEvent = function() {
+exports.loadHotEvent = function(size, skip) {
     var sql = `SELECT DISTINCT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
         sl.number_of_tickets
         FROM events as ev
         INNER JOIN sales as sl ON sl.event_id = ev.id
         ORDER BY sl.number_of_tickets ASC
-        LIMIT 3`;
+        LIMIT ${size} OFFSET ${skip}`;
     return db.load(sql);
 }
 
-exports.loadCommingSoon = function() {
-    var sql = `SELECT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description
-        FROM events as ev
-        WHERE CURDATE() < ev.release_date`;
-    return db.load(sql);
-}
-
-exports.loadAllCommingSoon = function(pageNo, size) {
-    var skip = size * (pageNo - 1);
+exports.loadCommingSoon = function(size, skip) {
     var sql = `SELECT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description
         FROM events as ev
         WHERE CURDATE() < ev.release_date

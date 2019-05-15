@@ -1,5 +1,6 @@
 var db = require('../fn/mysql-db');
 var genCode = require('../fn/generateCode').genCode;
+var constants = require('../utilities/constants');
 
 exports.loadSingle = function(bookingID, accountID) {
     var sql = `SELECT bk.code,
@@ -55,8 +56,19 @@ exports.loadByAccountID = function(id) {
 
 exports.add = function(bookingEntity) {
     var code = genCode(7);
-    var insertBookingsRecord = `INSERT INTO bookings(account_id, movie_showings_id, code, type)
-        values('${bookingEntity.account_id}', '${bookingEntity.movie_showings_id}', '${code}', '${bookingEntity.type}')`;
+    var insertBookingsRecord = ``;
+    switch (bookingEntity.type) {
+        case constants.BookingType.MOVIE: {
+            insertBookingsRecord = `INSERT INTO bookings(account_id, movie_showings_id, code, type)
+                values('${bookingEntity.account_id}', '${bookingEntity.movie_showings_id}', '${code}', '${bookingEntity.type}')`;
+            break;
+        }
+        case constants.BookingType.SPORT: {
+            insertBookingsRecord = `INSERT INTO bookings(account_id, sale_id, code, type)
+                values('${bookingEntity.account_id}', '${bookingEntity.sale_id}', '${code}', '${bookingEntity.type}')`;
+            break;
+        }
+    }
 
     var insertBookedSeatsRecord = ``;
     var numOfBookedSeatsRecord = bookingEntity.bookedSeats.length;

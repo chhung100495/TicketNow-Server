@@ -204,8 +204,8 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
 INSERT INTO `bookings` (`id`, `account_id`, `movie_showings_id`, `sale_id`, `code`, `type`, `created_at`) VALUES
 	(1, 6, 1, NULL, '5hlyRb9', 0, '2019-04-10 08:10:00'),
-	(2, 6, 58, NULL, 'hUmTCvX', 0, '2019-04-17 12:00:00'),
-	(3, 6, 152, NULL, 'Js0JS21', 0, '2019-04-20 18:45:00'),
+	(2, 6, 57, NULL, 'Js0JS21', 0, '2019-04-20 18:45:00'),
+	(3, 6, 58, NULL, 'hUmTCvX', 0, '2019-04-17 12:00:00'),
 	(4, 6, NULL, 1, 'suA071u', 1, '2019-06-06 11:32:00');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 

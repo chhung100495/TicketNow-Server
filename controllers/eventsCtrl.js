@@ -5,7 +5,20 @@ var moment = require('moment');
 var router = express.Router();
 
 router.get('/hotEvent', (req, res) => {
-    eventsRepo.loadHotEvent()
+    var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.size);
+    if (pageNo < 0 || pageNo === 0) {
+        response = { "error": true,
+                     "message": "invalid page number, should start with 1"};
+        return res.json(response);
+    }
+    if (!pageNo) {
+        // Set default of 1 for pageNo and 3 for size if a value isn't provided by the client
+        pageNo = 1;
+        size = 3;
+    }
+    var skip = size * (pageNo - 1);
+    eventsRepo.loadHotEvent(size, skip)
         .then(rows => {
             var results = {result: rows};
             res.json(results);
@@ -18,27 +31,20 @@ router.get('/hotEvent', (req, res) => {
 })
 
 router.get('/commingSoon', (req, res) => {
-    eventsRepo.loadCommingSoon()
-        .then(rows => {
-            var results = {result: rows};
-            res.json(results);
-        })
-        .catch(err => {
-            console.log(err);
-            res.statusCode = 500;
-            res.end('View error log on server console');
-        })
-})
-
-router.get('/commingSoon/:pageNo', (req, res) => {
-    var pageNo = parseInt(req.params.pageNo);
-    var size = 6;
+    var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.size);
     if (pageNo < 0 || pageNo === 0) {
         response = { "error": true,
                      "message": "invalid page number, should start with 1"};
-        return res.json(response)
+        return res.json(response);
     }
-    eventsRepo.loadAllCommingSoon(pageNo, size)
+    if (!pageNo) {
+        // Set default of 1 for pageNo and 6 for size if a value isn't provided by the client
+        pageNo = 1;
+        size = 6;
+    }
+    var skip = size * (pageNo - 1);
+    eventsRepo.loadCommingSoon(size, skip)
         .then(rows => {
             var results = {result: rows};
             res.json(results);

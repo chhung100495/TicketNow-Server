@@ -31,12 +31,12 @@
 
 * Đặt vé:
 	[POST] http://localhost:4000/bookings/add
+	+ Đặt vé xem phim:
 	```sh
     body: {
-		"account_id": 1,
+		"account_id": 6,
 		"movie_showings_id": 1,
 		"type": 0,
-		"location_id": 1,
 		"bookedSeats": [
 			{
 				"seat_id": 2,
@@ -54,7 +54,38 @@
 				"quantity": 1
 			},
 			{
+				"combo_id": 2,
+				"price": 50000,
+				"quantity": 1
+			}
+		]
+	}
+	/* Nếu không có đặt combo: "bookedCombos": [] */
+	```
+	+ Đặt vé xem sự kiện:
+	```sh
+    body: {
+		"account_id": 6,
+		"sale_id": 1,
+		"type": 1,
+		"bookedSeats": [
+			{
+				"seat_id": 2,
+				"price": 88000
+			},
+			{
+				"seat_id": 3,
+				"price": 88000
+			}
+		],
+		"bookedCombos": [
+			{
 				"combo_id": 1,
+				"price": 50000,
+				"quantity": 1
+			},
+			{
+				"combo_id": 2,
 				"price": 50000,
 				"quantity": 1
 			}
