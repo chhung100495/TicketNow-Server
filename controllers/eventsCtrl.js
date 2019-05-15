@@ -60,8 +60,7 @@ router.get('/:id/sale/:datetime', (req, res) => {
     var eventID = req.params.id;
     var datetime = new Date(parseInt(req.params.datetime));
     var formattedDateTime = moment(datetime).format("YYYY-MM-DD HH:mm:ss");
-    console.log(formattedDateTime);
-    eventsRepo.loadByDay(eventID, formattedDateTime)
+    eventsRepo.loadByDatetime(eventID, formattedDateTime)
         .then(rows => {
             if (rows.length > 0) {
                 var arr = [];

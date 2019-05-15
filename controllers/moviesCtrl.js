@@ -97,7 +97,7 @@ router.get('/:id/showing/:date', (req, res) => {
                         var showTimes = [];
                         for (var j = 0; j < rows.length; j++) {
                             if (rows[i].cinemaID == rows[j].cinemaID) {
-                                showTimes.push({id: rows[j].movieShowingsID, type: rows[j].type, price: rows[j].price, time: rows[j].time, location_id: rows[j].locationID, location_name: rows[j].locationName, totalSeats: rows[j].totalSeats });
+                                showTimes.push({id: rows[j].movieShowingID, type: rows[j].type, price: rows[j].price, time: rows[j].time, location_id: rows[j].locationID, location_name: rows[j].locationName, totalSeats: rows[j].totalSeats });
                             }
                         }
                         var cinemas = { cinemaID: rows[i].cinemaID,

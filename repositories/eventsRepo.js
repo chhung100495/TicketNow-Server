@@ -33,7 +33,7 @@ exports.loadSingle = function(id) {
     return db.load(sql);
 }
 
-exports.loadByDay = function(eventID, datetime) {
+exports.loadByDatetime = function(eventID, datetime) {
     var sql = `SELECT sl.id as saleID, sl.price, sl.number_of_tickets as numberOfTickets,
         ev.time,
         b.name as blockName,

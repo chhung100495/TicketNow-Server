@@ -113,24 +113,27 @@
 * Lấy danh sách các bộ phim sắp chiếu của các rạp có sử dụng phân trang:
 	[GET] http://localhost:4000/movies/commingSoon?pageNo={pageNo}&size={size}
 
-* Lấy danh sách thông tin rạp chiếu cùng xuất chiếu của 1 bộ phim:
+* Lấy danh sách thông tin rạp chiếu cùng suất chiếu của 1 bộ phim:
 	[GET] http://localhost:4000/movies/{id}/showing/{date}
 
 * Lấy thông tin của các bộ phim theo id:
 	[GET] http://localhost:4000/movies/{id}
 
-* Lấy danh sách thông tin các vị trí ghế theo suất chiếu và vị trí rạp
+* Lấy danh sách thông tin các vị trí ghế theo suất chiếu và rạp
 	[GET] http://localhost:4000/seats/movieShowing/{movieShowingID}/location/{locationID}
 
 # Event
-* Lấy danh sách các sự kiện nổi bật:
+* Lấy danh sách các sự kiện nổi bật (mặc định có 3 item):
 	[GET] http://localhost:4000/events/hotEvent
 
-* Lấy danh sách các sự kiện sắp diễn ra:
+* Lấy danh sách các sự kiện nổi bật có sử dụng phân trang:
+	[GET] http://localhost:4000/events/hotEvent?pageNo={pageNo}&size={size}
+
+* Lấy danh sách các sự kiện sắp diễn ra (mặc định có 6 item):
 	[GET] http://localhost:4000/events/commingSoon
 
 * Lấy danh sách các sự kiện sắp diễn ra có sử dụng phân trang:
-	[GET] http://localhost:4000/events/commingSoon/{pageNo}
+	[GET] http://localhost:4000/events/commingSoon?pageNo={pageNo}&size={size}
 
 * Lấy thông tin của các sự kiện theo id:
 	[GET] http://localhost:4000/events/{id}
@@ -138,9 +141,24 @@
 * Lấy danh sách thông tin các vé sự kiện được bán ra theo ngày giờ:
 	[GET] http://localhost:4000/events/{id}/sale/{datetime}
 
+* Lấy danh sách thông tin các vị trí ghế theo đợt sự kiện và sân vận động
+	[GET] http://localhost:4000/seats/sale/{saleID}/location/{locationID}
+
 # The Others
-* Lấy danh sách các sân vận động:
+* Lấy danh sách các hệ thống rạp:
 	[GET] http://localhost:4000/cineplex
 
-* Lấy danh sách các hệ thống rạp:
+* Lấy thông tin các rạp theo id:
+	[GET] http://localhost:4000/cinemas/{id}
+
+* Lấy danh sách thông tin các suất chiếu của các phim trong ngày được chọn của 1 rạp:
+	[GET] http://localhost:4000/cinemas/{id}/showing/{date}
+
+* Lấy danh sách các sân vận động:
 	[GET] http://localhost:4000/venues
+
+* Lấy thông tin các sân vận động theo id:
+	[GET] http://localhost:4000/venues/{id}
+
+* Lấy danh sách thông tin các vé được bán ra của các sự kiện trong ngày giờ được chọn của 1 sân vận động:
+	[GET] http://localhost:4000/venues/{id}/sale/{datetime}
