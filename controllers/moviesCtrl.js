@@ -5,7 +5,20 @@ var moment = require('moment');
 var router = express.Router();
 
 router.get('/showing', (req, res) => {
-    moviesRepo.loadShowing()
+    var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.size);
+    if (pageNo < 0 || pageNo === 0) {
+        response = { "error": true,
+                     "message": "invalid page number, should start with 1"};
+        return res.json(response);
+    }
+    if (!pageNo) {
+        // Set default of 1 for pageNo and 6 for size if a value isn't provided by the client
+        pageNo = 1;
+        size = 6;
+    }
+    var skip = size * (pageNo - 1);
+    moviesRepo.loadShowing(size, skip)
         .then(rows => {
             var results = {result: rows};
             res.json(results);
@@ -18,27 +31,20 @@ router.get('/showing', (req, res) => {
 })
 
 router.get('/mostFavorite', (req, res) => {
-    moviesRepo.loadMostFavorite()
-        .then(rows => {
-            var results = {result: rows};
-            res.json(results);
-        })
-        .catch(err => {
-            console.log(err);
-            res.statusCode = 500;
-            res.end('View error log on server console');
-        })
-})
-
-router.get('/mostFavorite/:pageNo', (req, res) => {
-    var pageNo = parseInt(req.params.pageNo);
-    var size = 6;
+    var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.size);
     if (pageNo < 0 || pageNo === 0) {
         response = { "error": true,
                      "message": "invalid page number, should start with 1"};
-        return res.json(response)
+        return res.json(response);
     }
-    moviesRepo.loadAllMostFavorite(pageNo, size)
+    if (!pageNo) {
+        // Set default of 1 for pageNo and 3 for size if a value isn't provided by the client
+        pageNo = 1;
+        size = 3;
+    }
+    var skip = size * (pageNo - 1);
+    moviesRepo.loadMostFavorite(size, skip)
         .then(rows => {
             var results = {result: rows};
             res.json(results);
@@ -51,27 +57,21 @@ router.get('/mostFavorite/:pageNo', (req, res) => {
 })
 
 router.get('/commingSoon', (req, res) => {
-    moviesRepo.loadCommingSoon()
-        .then(rows => {
-            var results = {result: rows};
-            res.json(results);
-        })
-        .catch(err => {
-            console.log(err);
-            res.statusCode = 500;
-            res.end('View error log on server console');
-        })
-})
-
-router.get('/commingSoon/:pageNo', (req, res) => {
-    var pageNo = parseInt(req.params.pageNo);
-    var size = 6;
+    var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.size);
     if (pageNo < 0 || pageNo === 0) {
         response = { "error": true,
                      "message": "invalid page number, should start with 1"};
-        return res.json(response)
+        return res.json(response);
     }
-    moviesRepo.loadAllCommingSoon(pageNo, size)
+    if (!pageNo) {
+        // Set default of 1 for pageNo and 6 for size if a value isn't provided by the client
+        pageNo = 1;
+        size = 6;
+    }
+    var skip = size * (pageNo - 1);
+    console.log(size, skip)
+    moviesRepo.loadCommingSoon(size, skip)
         .then(rows => {
             var results = {result: rows};
             res.json(results);

@@ -1,29 +1,19 @@
 var db = require('../fn/mysql-db');
 
 exports.loadAll = function() {
-    var sql = `SELECT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
-        FROM movie as m`;
+    var sql = ``;
     return db.load(sql);
 }
 
-exports.loadShowing = function() {
-    var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
-        FROM movies as m
-        INNER JOIN movie_showings as ms ON ms.movie_id = m.id`;
-    return db.load(sql);
-}
-
-exports.loadMostFavorite = function() {
+exports.loadShowing = function(size, skip) {
     var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
         FROM movies as m
         INNER JOIN movie_showings as ms ON ms.movie_id = m.id
-        ORDER BY m.score DESC
-        LIMIT 3`;
+        LIMIT ${size} OFFSET ${skip}`;
     return db.load(sql);
 }
 
-exports.loadAllMostFavorite = function(pageNo, size) {
-    var skip = size * (pageNo - 1);
+exports.loadMostFavorite = function(size, skip) {
     var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
         FROM movies as m
         INNER JOIN movie_showings as ms ON ms.movie_id = m.id
@@ -32,15 +22,7 @@ exports.loadAllMostFavorite = function(pageNo, size) {
     return db.load(sql);
 }
 
-exports.loadCommingSoon = function() {
-    var sql = `SELECT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
-        FROM movies as m
-        WHERE CURDATE() < m.initial_release`;
-    return db.load(sql);
-}
-
-exports.loadAllCommingSoon = function(pageNo, size) {
-    var skip = size * (pageNo - 1);
+exports.loadCommingSoon = function(size, skip) {
     var sql = `SELECT DISTINCT m.id, m.name, m.img_url as imgURL, m.trailer_url as trailerURL, m.score, m.description, m.min_age as minAge, m.director, m.cast, m.running_time as runningTime, m.genre, m.initial_release as initialRelease
         FROM movies as m
         WHERE CURDATE() < m.initial_release

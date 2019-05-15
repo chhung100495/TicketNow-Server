@@ -17,19 +17,19 @@
 * Đổi mật khẩu tài khoản:
 	[POST] http://localhost:4000/accounts/changePassword (body: id, current_password, new_password)
 
-* Lấy danh sách các vé đã đặt mua của account
+* Lấy danh sách các vé đã đặt mua của account:
 	[GET] http://localhost:4000/bookings/account/<id>
 
-* Lấy thông tin vé đã đặt mua dựa vào booking id và account id
+* Lấy thông tin vé đã đặt mua dựa vào booking id và account id:
 	[GET] http://localhost:4000/bookings/<id>/account/<id>
 
-* Lấy danh sách các vị trí ghế của vé đã đặt theo account
+* Lấy danh sách các vị trí ghế của vé đã đặt theo account:
 	[GET] http://localhost:4000/bookedSeats/account/<id>
 
-* Lấy danh sách các combo của vé đã đặt theo account
+* Lấy danh sách các combo của vé đã đặt theo account:
 	[GET] http://localhost:4000/bookedCombos/account/<id>
 
-* Đặt vé
+* Đặt vé:
 	[POST] http://localhost:4000/bookings/add
 	```sh
     body: {
@@ -64,20 +64,23 @@
 	```
 
 # Movie
-* Lấy danh sách các bộ phim đang chiếu của các rạp:
-	[GET] http://localhost:4000/movies/showing
-
-* Lấy danh sách các bộ phim được yêu thích nhất của các rạp:
+* Lấy danh sách các bộ phim được yêu thích nhất của các rạp (mặc định có 3 item):
 	[GET] http://localhost:4000/movies/mostFavorite
 
-* Lấy danh sách các bộ phim được yêu thích nhất của các rạp có sử dụng phân trang (mặc định 1 trang có 6 item):
-	[GET] http://localhost:4000/movies/mostFavorite/<pageNo>
+* Lấy danh sách các bộ phim được yêu thích nhất của các rạp có sử dụng phân trang:
+	[GET] http://localhost:4000/movies/mostFavorite?pageNo=<pageNo>&size=<size>
 
-* Lấy danh sách các bộ phim sắp chiếu của các rạp:
+* Lấy danh sách các bộ phim đang chiếu của các rạp (mặc định có 6 item):
+	[GET] http://localhost:4000/movies/showing
+
+* Lấy danh sách các bộ phim đang chiếu của các rạp có sử dụng phân trang:
+	[GET] http://localhost:4000/movies/showing?pageNo=<pageNo>&size=<size>
+
+* Lấy danh sách các bộ phim sắp chiếu của các rạp (mặc định có 6 item):
 	[GET] http://localhost:4000/movies/commingSoon
 
-* Lấy danh sách các bộ phim sắp chiếu của các rạp có sử dụng phân trang (mặc định 1 trang có 6 item):
-	[GET] http://localhost:4000/movies/commingSoon/<pageNo>
+* Lấy danh sách các bộ phim sắp chiếu của các rạp có sử dụng phân trang:
+	[GET] http://localhost:4000/movies/commingSoon?pageNo=<pageNo>&size=<size>
 
 * Lấy danh sách thông tin rạp chiếu cùng xuất chiếu của 1 bộ phim:
 	[GET] http://localhost:4000/movies/<id>/showing/<date>
@@ -85,7 +88,7 @@
 * Lấy thông tin của các bộ phim theo id:
 	[GET] http://localhost:4000/movies/<id>
 
-* Lấy danh sách thông tin các vị trí ghế theo suất chiếu
+* Lấy danh sách thông tin các vị trí ghế theo suất chiếu và vị trí rạp
 	[GET] http://localhost:4000/seats/movieShowing/<movieShowingID>/location/<locationID>
 
 # Event
@@ -95,7 +98,7 @@
 * Lấy danh sách các sự kiện sắp diễn ra:
 	[GET] http://localhost:4000/events/commingSoon
 
-* Lấy danh sách các sự kiện sắp diễn ra có sử dụng phân trang (mặc định 1 trang có 6 item):
+* Lấy danh sách các sự kiện sắp diễn ra có sử dụng phân trang:
 	[GET] http://localhost:4000/events/commingSoon/<pageNo>
 
 * Lấy thông tin của các sự kiện theo id:
