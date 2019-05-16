@@ -14,10 +14,10 @@ router.get('/', (req, res) => {
                         var cinemas = [];
                         for (var j = 0; j < rows.length; j++) {
                             if (rows[i].cineplexID == rows[j].cineplexID) {
-                                cinemas.push({ id: rows[i].cinemaID,
-                                               name: rows[i].cinemaName,
-                                               address: rows[i].address,
-                                               avgPoint: rows[i].avgPoint });
+                                cinemas.push({ id: rows[j].cinemaID,
+                                               cinemaName: rows[j].cinemaName,
+                                               address: rows[j].address,
+                                               avgPoint: rows[j].avgPoint });
                             }
                         }
                         var cineplex = { iconURL: rows[i].iconURL,
