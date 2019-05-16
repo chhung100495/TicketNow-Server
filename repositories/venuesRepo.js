@@ -1,7 +1,7 @@
 var db = require('../fn/mysql-db');
 
 exports.loadAll = function() {
-    var sql = `SELECT v.id, v.name, v.view_url as viewURL, v.address, v.avg_point FROM venues as v`;
+    var sql = `SELECT v.id, v.name, v.view_url as viewURL, v.address, v.avg_point as avgPoint FROM venues as v`;
     return db.load(sql);
 }
 
