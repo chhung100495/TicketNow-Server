@@ -24,7 +24,7 @@ exports.loadCommingSoon = function(size, skip) {
 }
 
 exports.loadSingle = function(id) {
-    var sql = `SELECT DISTINCT ev.id, ev.name as eventName, ev.img_url as imgURL, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
+    var sql = `SELECT DISTINCT ev.id, ev.name as eventName, ev.img_url as imgURL, ev.video_url as videoURL, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
         v.name as venueName
         FROM events as ev
         INNER JOIN sales as sl ON sl.event_id = ev.id

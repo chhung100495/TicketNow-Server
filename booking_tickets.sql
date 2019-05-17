@@ -167,8 +167,7 @@ CREATE TABLE IF NOT EXISTS `booked_seats` (
   PRIMARY KEY (`booking_id`,`seat_id`),
   KEY `FK_BOOKED_SEATS_BOOKINGS` (`booking_id`),
   KEY `FK_BOOKED_SEATS_SEATS` (`seat_id`),
-  CONSTRAINT `FK_BOOKED_SEATS_BOOKINGS` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_BOOKED_SEATS_SEATS` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_BOOKED_SEATS_BOOKINGS` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table booking_tickets.booked_seats: ~5 rows (approximately)
@@ -204,9 +203,9 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 /*!40000 ALTER TABLE `bookings` DISABLE KEYS */;
 INSERT INTO `bookings` (`id`, `account_id`, `movie_showings_id`, `sale_id`, `code`, `type`, `created_at`) VALUES
 	(1, 6, 1, NULL, '5hlyRb9', 0, '2019-04-10 08:10:00'),
-	(2, 6, 57, NULL, 'Js0JS21', 0, '2019-04-20 18:45:00'),
-	(3, 6, 58, NULL, 'hUmTCvX', 0, '2019-04-17 12:00:00'),
-	(4, 6, NULL, 1, 'suA071u', 1, '2019-06-06 11:32:00');
+	(2, 6, 57, NULL, 'hUmTCvX', 0, '2019-04-17 12:00:00'),
+	(3, 6, 58, NULL, 'Js0JS21', 0, '2019-05-10 22:00:00'),
+	(4, 6, NULL, 1, 'suA071u', 1, '2019-06-06 11:30:00');
 /*!40000 ALTER TABLE `bookings` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.cinemas
@@ -241,7 +240,7 @@ INSERT INTO `cinemas` (`id`, `name`, `icon_url`, `view_url`, `address`, `phone`,
 	(9, 'CNS - Quốc Thanh', 'https://drive.google.com/uc?id=1q85L57gmNfTp25p7wlgUo-5WSajqNzpF', 'https://drive.google.com/uc?id=14l7uW10TFjjHAUVmpd2oOxMDXjgORaeZ', '271 Nguyễn Trãi, Q.1, TP.HCM', '028 7300 8881', '8:00 - 23:30', 'Rạp nằm ngay trụng tâm quận 1. Cụm rạp là một không gian giải trí rộng lớn để hẹn bạn bè, sinh nhật, họp báo, café hay đơn giản là selfie. Thức uống ngon, Coca-cola sảng khoái, bắp rang phô mai, caramel bổ dưỡng với giá cả cực chất.  Nhiều events liên tục ra mắt các bộ phim mới và các chương trình khuyến mãi hấp dẫn riêng có tại Cinestar Cinema.', 7.5, 5),
 	(10, 'CGV - Sư Vạn Hạnh', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1K90OWapTgbWcgGgrwSf0idwKiPEi0IhC', 'Tầng 6 Vạn Hạnh Mall, 11 Sư Vạn Hạnh, Quận 10, TP.HCM', '028 3862 5588', '8:00 - 23:30', 'Cũng như các cụm rạp khác trên toàn quốc, rạp Sư Vạn Hạnh vẫn được thiết kế theo phong cách retro cổ điển, quen thuộc. Tuy nhiên với lợi thế không gian lớn, rạp được bố trí đẹp mắt với những điểm nhấn ấn tượng đủ để khán giả đến với rạp mê mẩn và thỏa sức chụp ảnh tại bất kỳ góc nào của rạp.\r\n\\nMỗi phòng chiếu phim được trang bị hệ thống ghế ngồi êm ái, mang lại cảm giác thoải mái cho người xem khi theo dõi một tác phẩm có thời lượng khoảng hai tiếng đồng hồ. Hệ thống màn hình và âm thanh tiêu chuẩn quốc tế, mang lại những hình ảnh sắc nét và đầy cảm xúc dành cho khán giả khi theo dõi phim.', 9.5, 1),
 	(11, 'CGV - Golden Plaza', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1Bn2Uy5J75U4oZ2QV2J0BL4dhInfmZtRY', 'Tầng 4, Trung tâm thương mại Golden Plaza, 922 Nguyễn Trãi, P.14, Q.5, TP.HCM', '1900 6017', '8:00 - 23:30', 'Chính thức khai trương CGV Golden Plaza - cụm rạp thứ 40, tọa lạc tại tầng 4, Trung tâm thương mại Golden Plaza (922 Nguyễn Trãi, Phường 14, Quận 5, TP. HCM). Đây là hệ thống rạp chiếu thứ 2 khai trương sau CGV Vincom Trà Vinh, tính từ đầu năm 2017, nhằm tiếp tục mang đến những trải nghiệm điện ảnh chất lượng cao cho khán giả yêu phim trên cả nước.', 7.6, 1),
-	(12, 'CGV - Vincom Landmark 81', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1KwNoT7CrOqMe2dEL2cVYidsM2BlINvrB', 'T B1, TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ, P.22, Q.Bình Thạnh, TP.HCM', '1900 6017', '8:00 - 23:30', 'Cũng như các cụm rạp khác trên toàn quốc, rạp Landmark81 vẫn được thiết kế theo phong cách retro cổ điển, quen thuộc. Tuy nhiên với lợi thế không gian lớn, rạp được bố trí đẹp mắt với những điểm nhấn ấn tượng đủ để khán giả đến với rạp mê mẩn và thỏa sức chụp ảnh tại bất kỳ góc nào của rạp.\r\n\\nMỗi phòng chiếu phim được trang bị hệ thống ghế ngồi êm ái, mang lại cảm giác thoải mái cho người xem khi theo dõi một tác phẩm có thời lượng khoảng hai tiếng đồng hồ. Hệ thống màn hình và âm thanh tiêu chuẩn quốc tế, mang lại những hình ảnh sắc nét và đầy cảm xúc dành cho khán giả khi theo dõi phim.', 10, 1),
+	(12, 'CGV - Vincom Landmark 81', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1KwNoT7CrOqMe2dEL2cVYidsM2BlINvrB', 'T B1 , TTTM Vincom Center Landmark 81, 772 Điện Biên Phủ, P.22, Q.Bình Thạnh, TP.HCM', '1900 6017', '8:00 - 23:30', 'Cũng như các cụm rạp khác trên toàn quốc, rạp Landmark81 vẫn được thiết kế theo phong cách retro cổ điển, quen thuộc. Tuy nhiên với lợi thế không gian lớn, rạp được bố trí đẹp mắt với những điểm nhấn ấn tượng đủ để khán giả đến với rạp mê mẩn và thỏa sức chụp ảnh tại bất kỳ góc nào của rạp.\r\n\\nMỗi phòng chiếu phim được trang bị hệ thống ghế ngồi êm ái, mang lại cảm giác thoải mái cho người xem khi theo dõi một tác phẩm có thời lượng khoảng hai tiếng đồng hồ. Hệ thống màn hình và âm thanh tiêu chuẩn quốc tế, mang lại những hình ảnh sắc nét và đầy cảm xúc dành cho khán giả khi theo dõi phim.', 10, 1),
 	(13, 'CGV - Vincom Đồng Khởi', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1lyFRaP9Szi2uema8oaLSKZp8cwKezYEa', 'Tầng 3, TTTM Vincom Center B, 72 Lê Thánh Tôn, Bến Nghé, Q.1, TP.HCM', '1900 6017', '8:00 - 23:30', 'CGV Vincom Đồng Khởi đi vào hoạt động với 8 phòng chiếu được trang bị hệ thống hiện đại. Đây là một trong những hệ thống rạp chiếu nằm ở vị trí trung tâm của CGV, hứa hẹn là điểm đến thường xuyên của các tín đồ điện ảnh, cũng như là địa điểm lý tưởng để tổ chức các sự kiện sang trọng.', 10, 1),
 	(14, 'CGV - Crescent Mall', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1trHYbZlAyxdtp6kvaZ9BWfP4bVYQd-5n', 'Lầu 5, Crescent Mall, Đại lộ Nguyễn Văn Linh, Phú Mỹ Hưng, Q.7, TP.HCM', '028 5412 2222', '8:00 - 23:30', 'CGV Crescent Mall có hệ thống phòng chiếu mới và hiện đại nhất: 8 phòng chiếu với hơn 1,200 ghế ngồi trên diện tích hơn 2000 m2. Chính sự rộng rãi đó đã mang lại một không gian hoàn toàn thoải mái cho dân ghiền phim. Hệ thống âm thanh kỹ thuật số 7.1 hỗ trợ tối đa cho các phim hành động, phiêu lưu tạo nên cảm giác sống động, chân thực.', 9.1, 1),
 	(15, 'CGV - Aeon Bình Tân', 'https://drive.google.com/uc?id=1_z9wnHeevMJYpci5__WQdDsT07ZeRLVp', 'https://drive.google.com/uc?id=1hDFiAqpPkUbgyUEzMsQs_CE0S_yUqLn7', 'Tầng 3, TTTM Aeon Mall Bình Tân, Số 1 đường số 17A, khu phố 11, Bình Trị Đông B, Bình Tân, TP.HCM', '083 620 2299', '8:00 - 23:30', 'CGV Aeon Mall Bình Tân hoạt động tại tầng 3, nằm trong khu vực TTTM Aeon Mall Bình Tân (tổng diện tích sàn 114.000m2, Lô PT1, Hi-tech Healthcare Park, 532A Kinh Dương Vương, phường Bình Trị Đông B, Quận Bình Tân, TP.Hồ Chí Minh). Được trang bị 7 phòng chiếu hiện đại, đặc biệt là phòng chiếu STARIUM LASER, CGV Aeon Mall Bình Tân là một trong những cụm rạp lớn nhất của CJ CGV tại Việt Nam với tổng số hơn 1.200 ghế ngồi. Đây cũng hứa hẹn sẽ là một điểm sáng giải trí của người dân khu vực Bình Tân và lân cận.', 9, 1),
@@ -314,6 +313,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `video_url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `release_date` date NOT NULL,
   `time` time NOT NULL,
   `organizer` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -324,14 +324,14 @@ CREATE TABLE IF NOT EXISTS `events` (
 
 -- Dumping data for table booking_tickets.events: ~7 rows (approximately)
 /*!40000 ALTER TABLE `events` DISABLE KEYS */;
-INSERT INTO `events` (`id`, `name`, `img_url`, `release_date`, `time`, `organizer`, `category`, `description`) VALUES
-	(1, 'Việt Nam vs. Jordan', 'https://drive.google.com/uc?id=1FuLliJ8w-yR-iMZ5ZLeD17bNDcU-jOPu', '2019-06-13', '19:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs.  ĐTQG Jordan | Bảng C - Vòng loại Asian Cup 2019'),
-	(2, 'Việt Nam vs. Philipines', 'https://drive.google.com/uc?id=1W-RyEA_Z8SrKzClKS4HXUO3QWFBIvLyQ', '2019-06-16', '19:30:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs. ĐTQG Philipines | Vòng bán kết lượt đi AFF Suzuki Cup 2019'),
-	(3, 'Hà Nội vs. Bình Dương', 'https://drive.google.com/uc?id=1rE2C61lDtkXN8hc8jktD7Qv_U1SOVMz3', '2019-06-19', '16:00:00', 'Công ty Cổ phần Bóng đá chuyên nghiệp Việt Nam - VPF', 0, 'Hà Nội và cơ hội đòi nợ Bình Dương ở Siêu Cup quốc gia 2019'),
-	(4, 'Việt Nam vs. Malaysia', 'https://drive.google.com/uc?id=1vQwy0JQm8H-uUp7qNiljjykLxeob9oxb', '2019-06-22', '16:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam-  ĐTQG Malaysia | Vòng bảng AFF Suzuki Cup 2019'),
-	(5, 'Việt Nam vs. Indonesia', 'https://drive.google.com/uc?id=19qcCvhHvgaN5zvjApcKcWhZz8prfkgHI', '2019-06-25', '16:30:00', 'Liên đoàn Bóng đá thế giới - FIFA', 0, 'Giải World - Friendlies'),
-	(6, 'Việt Nam vs. Nhật Bản', 'https://drive.google.com/uc?id=1rbwAJcaanCIVxUqFyPgrC7Nt1yq-FHHU', '2019-06-25', '17:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019'),
-	(7, 'Việt Nam - Yamen', 'https://drive.google.com/uc?id=1Nbe-tKBs069_-a1JMyh-4DwW8McWJv9l', '2019-06-29', '18:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019');
+INSERT INTO `events` (`id`, `name`, `img_url`, `video_url`, `release_date`, `time`, `organizer`, `category`, `description`) VALUES
+	(1, 'Việt Nam vs. Jordan', 'https://drive.google.com/uc?id=1FuLliJ8w-yR-iMZ5ZLeD17bNDcU-jOPu', 'https://www.youtube.com/embed/BK37WG6eoqY', '2019-06-13', '19:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs.  ĐTQG Jordan | Bảng C - Vòng loại Asian Cup 2019'),
+	(2, 'Việt Nam vs. Philipines', 'https://drive.google.com/uc?id=1W-RyEA_Z8SrKzClKS4HXUO3QWFBIvLyQ', 'https://www.youtube.com/embed/QNagp1_Tc28', '2019-06-16', '19:30:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam vs. ĐTQG Philipines | Vòng bán kết lượt đi AFF Suzuki Cup 2019'),
+	(3, 'Hà Nội vs. Bình Dương', 'https://drive.google.com/uc?id=1rE2C61lDtkXN8hc8jktD7Qv_U1SOVMz3', 'https://www.youtube.com/embed/0YmPaYtNaNo', '2019-06-19', '16:00:00', 'Công ty Cổ phần Bóng đá chuyên nghiệp Việt Nam - VPF', 0, 'Hà Nội và cơ hội đòi nợ Bình Dương ở Siêu Cup quốc gia 2019'),
+	(4, 'Việt Nam vs. Malaysia', 'https://drive.google.com/uc?id=1vQwy0JQm8H-uUp7qNiljjykLxeob9oxb', 'https://www.youtube.com/embed/WvdpImavAMY', '2019-06-22', '16:00:00', 'Liên đoàn Bóng đá Việt Nam  - VFF', 0, 'ĐTQG Việt Nam-  ĐTQG Malaysia | Vòng bảng AFF Suzuki Cup 2019'),
+	(5, 'Việt Nam vs. Indonesia', 'https://drive.google.com/uc?id=19qcCvhHvgaN5zvjApcKcWhZz8prfkgHI', 'https://www.youtube.com/embed/NG4AX_I6GME', '2019-06-25', '16:30:00', 'Liên đoàn Bóng đá thế giới - FIFA', 0, 'Giải World - Friendlies'),
+	(6, 'Việt Nam vs. Nhật Bản', 'https://drive.google.com/uc?id=1rbwAJcaanCIVxUqFyPgrC7Nt1yq-FHHU', 'https://www.youtube.com/embed/PVA-GowTEa8', '2019-06-25', '17:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019'),
+	(7, 'Việt Nam - Yamen', 'https://drive.google.com/uc?id=1Nbe-tKBs069_-a1JMyh-4DwW8McWJv9l', 'https://www.youtube.com/embed/Wuxob7abUPI', '2019-06-29', '18:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.locations
@@ -447,7 +447,7 @@ INSERT INTO `movie_showings` (`id`, `movie_id`, `auditorium_id`, `price`, `statu
 	(13, 1, 1, 88000, 0, '2D - Phụ đề', '2019-05-12', '18:55:00'),
 	(14, 1, 1, 88000, 0, '2D - Phụ đề', '2019-05-12', '21:15:00'),
 	(15, 1, 1, 88000, 0, '2D - Phụ đề', '2019-05-12', '22:15:00'),
-	(16, 2, 2, 88000, 0, '2D - Phụ đề', '2019-05-15', '14:05:00'),
+	(16, 2, 2, 88000, 0, '2D - Phụ đề', '2019-05-10', '14:05:00'),
 	(17, 2, 2, 88000, 0, '2D - Phụ đề', '2019-05-15', '18:25:00'),
 	(18, 2, 2, 88000, 0, '2D - Phụ đề', '2019-05-15', '21:05:00'),
 	(19, 2, 2, 88000, 0, '3D - Phụ đề', '2019-05-16', '14:05:00'),
@@ -923,9 +923,9 @@ CREATE TABLE IF NOT EXISTS `seats` (
   KEY `FK_SEATS_BLOCKS` (`block_id`),
   CONSTRAINT `FK_SEATS_BLOCKS` FOREIGN KEY (`block_id`) REFERENCES `blocks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_SEATS_LOCATIONS` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2161 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table booking_tickets.seats: ~2.161 rows (approximately)
+-- Dumping data for table booking_tickets.seats: ~2.158 rows (approximately)
 /*!40000 ALTER TABLE `seats` DISABLE KEYS */;
 INSERT INTO `seats` (`id`, `row`, `number`, `type`, `location_id`, `block_id`) VALUES
 	(1, 'A', '1', 0, 4, NULL),
@@ -3087,8 +3087,7 @@ INSERT INTO `seats` (`id`, `row`, `number`, `type`, `location_id`, `block_id`) V
 	(2157, 'J', '9', 0, 21, NULL),
 	(2158, 'J', '10', 0, 21, NULL),
 	(2159, 'J', '11', 0, 21, NULL),
-	(2160, 'J', '12', 0, 21, NULL),
-	(2161, 'A', '1', 1, 1, 1);
+	(2160, 'J', '12', 0, 21, NULL);
 /*!40000 ALTER TABLE `seats` ENABLE KEYS */;
 
 -- Dumping structure for table booking_tickets.units
