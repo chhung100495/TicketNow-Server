@@ -3,20 +3,36 @@ var genCode = require('../fn/generateCode').genCode;
 var constants = require('../utilities/constants');
 
 exports.loadSingle = function(bookingID, accountID) {
-    var sql = `SELECT bk.code,
-        m.name as movieName, m.min_age as minAge, m.running_time as runningTime, m.genre,
-        c.name as cinemaName, c.icon_url as iconURL, c.address,
-        ms.release_date as releaseDate, ms.time, ms.type,
+    var sql = `SELECT bk.id, bk.code, bk.type,
         s.row, s.number,
-        l.name as room
+        l.name as room,
+
+        m.name as movieName, m.min_age as minAge, m.running_time as runningTime, m.genre,
+        c.name as cinemaName, c.icon_url as cinemaIconURL, c.address,
+        ms.release_date as movieReleaseDate, ms.time as movieTime, ms.type,
+
+        ev.name as eventName, ev.category as eventCategory, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.time as eventTime, ev.organizer, ev.description,
+        sl.gateway,
+        u.name as unitName, u.icon_url as unitIconURL,
+        v.address as venueAddress,
+        b.name as block
+
         FROM bookings as bk
-        INNER JOIN movie_showings as ms ON ms.id = bk.movie_showings_id
-        INNER JOIN movies as m ON m.id = ms.movie_id
         INNER JOIN booked_seats as bs ON bs.booking_id = bk.id
         INNER JOIN seats as s ON s.id = bs.seat_id
-        INNER JOIN auditoriums as adt ON adt.id = ms.auditorium_id
-        INNER JOIN cinemas as c ON c.id = adt.cinema_id
-        INNER JOIN locations as l ON l.id = adt.location_id
+
+        LEFT JOIN movie_showings as ms ON ms.id = bk.movie_showings_id
+        LEFT JOIN movies as m ON m.id = ms.movie_id
+        LEFT JOIN auditoriums as adt ON adt.id = ms.auditorium_id
+        LEFT JOIN cinemas as c ON c.id = adt.cinema_id
+
+        LEFT JOIN sales as sl ON sl.id = bk.sale_id
+        LEFT JOIN events as ev ON ev.id = sl.event_id
+        LEFT JOIN venues as v ON v.id = sl.venue_id
+        LEFT JOIN units as u ON u.id = sl.unit_id
+        LEFT JOIN blocks as b ON b.id = sl.block_id
+
+        INNER JOIN locations as l ON l.id = adt.location_id OR v.location_id = l.id
         WHERE bk.id = '${bookingID}' AND bk.account_id = '${accountID}'`;
     return db.load(sql);
 }
@@ -24,15 +40,18 @@ exports.loadSingle = function(bookingID, accountID) {
 exports.loadByAccountID = function(id) {
     var sql = `SELECT DISTINCT m.name as movieName, m.min_age as minAge, m.img_url as movieImgURL, m.running_time as runningTime, m.genre,
         c.name as cinemaName, c.icon_url as cinemaIconURL, c.address as cinemaAddress,
-        l.name as room,
         ms.type as movieType, ms.release_date as movieReleaseDate, ms.time as movieTime,
+
         bk.code, bk.id, bk.type,
         s.row, s.number,
+        l.name as room,
+
         ev.name as eventName, ev.category as eventCategory, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.time as eventTime, ev.organizer, ev.description,
         sl.gateway,
         u.name as unitName, u.icon_url as unitIconURL,
         v.address as venueAddress,
         b.name as block
+
         FROM bookings as bk
         INNER JOIN booked_seats as bs ON bs.booking_id = bk.id
         INNER JOIN seats as s ON s.id = bs.seat_id

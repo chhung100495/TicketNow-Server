@@ -21,6 +21,7 @@ router.get('/account/:id', (req, res) => {
                         var bookings = {    id: rows[i].id,
                                             type: rows[i].type,
                                             code: rows[i].code,
+
                                             movieName: rows[i].movieName,
                                             minAge: rows[i].minAge,
                                             runningTime: rows[i].runningTime,
@@ -28,12 +29,14 @@ router.get('/account/:id', (req, res) => {
                                             genre: rows[i].genre,
                                             cinemaName: rows[i].cinemaName,
                                             movieIconURL: rows[i].movieIconURL,
+
                                             ...(rows[i].type == 0 ? {time: rows[i].movieTime} : {time: rows[i].eventTime}),
                                             ...(rows[i].type == 0 ? {room: rows[i].room} : {venue: rows[i].room}),
                                             address: (rows[i].type == 0 ? rows[i].cinemaAddress : rows[i].venueAddress),
                                             imgURL: (rows[i].type == 0 ? rows[i].movieImgURL : rows[i].eventImgURL),
                                             iconURL: (rows[i].type == 0 ? rows[i].cinemaIconURL : rows[i].unitIconURL),
                                             releaseDate: (rows[i].type == 0 ? rows[i].movieReleaseDate : rows[i].eventReleaseDate),
+
                                             eventName: rows[i].eventName,
                                             eventCategory: rows[i].eventCategory,
                                             unitName: rows[i].unitName,
@@ -41,6 +44,7 @@ router.get('/account/:id', (req, res) => {
                                             organizer: rows[i].organizer,
                                             description: rows[i].description,
                                             block: rows[i].block,
+
                                             bookedSeatList: seats };
                         arr.push(bookings);
                         flag = rows[i].id;
@@ -89,18 +93,31 @@ router.get('/:bookingID/account/:accountID', (req, res) => {
                     seats.push({row: rows[i].row, number: rows[i].number });
                 }
                 var obj = {
+                    id: rows[0].id,
+                    type: rows[0].type,
+                    code: rows[0].code,
+
                     movieName: rows[0].movieName,
                     minAge: rows[0].minAge,
-                    type: rows[0].type,
                     runningTime: rows[0].runningTime,
                     cinemaName: rows[0].cinemaName,
-                    iconURL: rows[0].iconURL,
-                    address: rows[0].address,
-                    room: rows[0].room,
-                    releaseDate: rows[0].releaseDate,
-                    time: rows[0].time,
-                    room: rows[0].room,
-                    code: rows[0].code,
+                    genre: rows[0].genre,
+
+                    ...(rows[0].type == 0 ? {time: rows[0].movieTime} : {time: rows[0].eventTime}),
+                    ...(rows[0].type == 0 ? {room: rows[0].room} : {venue: rows[0].room}),
+                    address: (rows[0].type == 0 ? rows[0].cinemaAddress : rows[0].venueAddress),
+                    imgURL: (rows[0].type == 0 ? rows[0].movieImgURL : rows[0].eventImgURL),
+                    iconURL: (rows[0].type == 0 ? rows[0].cinemaIconURL : rows[0].unitIconURL),
+                    releaseDate: (rows[0].type == 0 ? rows[0].movieReleaseDate : rows[0].eventReleaseDate),
+
+                    eventName: rows[0].eventName,
+                    eventCategory: rows[0].eventCategory,
+                    unitName: rows[0].unitName,
+                    gateway: rows[0].gateway,
+                    organizer: rows[0].organizer,
+                    description: rows[0].description,
+                    block: rows[0].block,
+
                     bookedSeats: seats
                 }
                 var results = { result: obj };
