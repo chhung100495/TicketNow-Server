@@ -322,33 +322,6 @@ INSERT INTO `events` (`id`, `name`, `img_url`, `video_url`, `release_date`, `tim
 	(7, 'Việt Nam - Yamen', 'https://drive.google.com/uc?id=1Nbe-tKBs069_-a1JMyh-4DwW8McWJv9l', 'https://www.youtube.com/embed/Wuxob7abUPI', '2019-06-29', '18:00:00', 'Liên đoàn bóng đá châu Á - AFC', 0, 'Giải Asian Cup 2019');
 /*!40000 ALTER TABLE `events` ENABLE KEYS */;
 
--- Dumping structure for procedure booking_tickets.insertSeatsForVenues
-DROP PROCEDURE IF EXISTS `insertSeatsForVenues`;
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSeatsForVenues`()
-BEGIN
-    DECLARE i int DEFAULT 1;
-    DECLARE j int DEFAULT 1;
-    DECLARE _rows varchar(255) DEFAULT 'A';
-    DECLARE location_id int DEFAULT 25; /* Sân Thống Nhất */
-    DECLARE block_id int DEFAULT 28; /* Khán đài A */
-    WHILE i <= 120 DO
-        IF i = 13 THEN SET _rows = 'B'; SET j = 1; END IF;
-    	  IF i = 25 THEN SET _rows = 'C'; SET j = 1; END IF;
-		  IF i = 37 THEN SET _rows = 'D'; SET j = 1; END IF;
-		  IF i = 49 THEN SET _rows = 'E'; SET j = 1; END IF;
-		  IF i = 61 THEN SET _rows = 'F'; SET j = 1; END IF;
-		  IF i = 73 THEN SET _rows = 'G'; SET j = 1; END IF;
-		  IF i = 85 THEN SET _rows = 'H'; SET j = 1; END IF;
-		  IF i = 97 THEN SET _rows = 'I'; SET j = 1; END IF;
-		  IF i = 109 THEN SET _rows = 'J'; SET j = 1; END IF;
-        INSERT INTO seats (row, number, type, location_id, block_id) VALUES (_rows, j, 0, location_id, block_id);
-        SET i = i + 1;
-        SET j = j + 1;
-    END WHILE;
-END//
-DELIMITER ;
-
 -- Dumping structure for table booking_tickets.locations
 DROP TABLE IF EXISTS `locations`;
 CREATE TABLE IF NOT EXISTS `locations` (

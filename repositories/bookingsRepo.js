@@ -57,15 +57,18 @@ exports.loadByAccountID = function(id) {
 exports.add = function(bookingEntity) {
     var code = genCode(7);
     var insertBookingsRecord = ``;
+    var updateNumberOfTickets = ``;
     switch (bookingEntity.type) {
         case constants.BookingType.MOVIE: {
             insertBookingsRecord = `INSERT INTO bookings(account_id, movie_showings_id, code, type)
                 values('${bookingEntity.account_id}', '${bookingEntity.movie_showings_id}', '${code}', '${bookingEntity.type}')`;
+            updateNumberOfTickets = ``;
             break;
         }
         case constants.BookingType.SPORT: {
             insertBookingsRecord = `INSERT INTO bookings(account_id, sale_id, code, type)
                 values('${bookingEntity.account_id}', '${bookingEntity.sale_id}', '${code}', '${bookingEntity.type}')`;
+            updateNumberOfTickets = `UPDATE sales as s SET s.number_of_tickets = s.number_of_tickets - '${bookingEntity.bookedSeats.length}' WHERE s.id = '${bookingEntity.sale_id}'`;
             break;
         }
     }
@@ -85,6 +88,6 @@ exports.add = function(bookingEntity) {
                 values(?, '${bookingEntity.bookedCombos[i].combo_id}', '${bookingEntity.bookedCombos[i].price}', '${bookingEntity.bookedCombos[i].quantity}'); `;
         }
     }
-    queries = [insertBookingsRecord, insertBookedSeatsRecord, insertBookedCombosRecord]
+    queries = [insertBookingsRecord, insertBookedSeatsRecord, insertBookedCombosRecord, updateNumberOfTickets];
     return db.executeBooking(queries, numOfBookedSeatsRecord, numOfBookedCombosRecord);
 }

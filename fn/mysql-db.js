@@ -145,7 +145,7 @@ exports.executeBooking = function(queries, numOfBookedSeatsRecord, numOfBookedCo
                         for (var i = 0; i < numOfBookedCombosRecord; i++) {
                             arrayID.push(id);
                         }
-                        connection.query(queries[2], arrayID, function(err, result, fields) {
+                        connection.query(queries[2], arrayID, function(err, results, fields) {
                             if (err) {
                                 connection.rollback(function() {
                                     reject(err);
@@ -168,15 +168,26 @@ exports.executeBooking = function(queries, numOfBookedSeatsRecord, numOfBookedCo
                             });
                         });
                     } else {
-                        connection.commit(function(err) {
+                        connection.query(queries[3], function(err, result) {
                             if (err) {
                                 connection.rollback(function() {
                                     reject(err);
                                 });
                             }
-                            resolve(bookingResults);
-                            console.log('Transaction Complete');
-                            connection.end();
+                            console.log(queries[3])
+                            bookingResults = bookingResults.concat(result);
+
+                            connection.commit(function(err) {
+                                if (err) {
+                                    connection.rollback(function() {
+                                        reject(err);
+                                    });
+                                }
+
+                                resolve(bookingResults);
+                                console.log('Transaction Complete');
+                                connection.end();
+                            });
                         });
                     }
                 });
