@@ -81,7 +81,7 @@ exports.add = function(bookingEntity) {
         case constants.BookingType.MOVIE: {
             insertBookingsRecord = `INSERT INTO bookings(account_id, movie_showings_id, code, type)
                 values('${bookingEntity.account_id}', '${bookingEntity.movie_showings_id}', '${code}', '${bookingEntity.type}')`;
-            updateNumberOfTickets = ``;
+            updateNumberOfTickets = `SELECT (1)`;
             break;
         }
         case constants.BookingType.SPORT: {
