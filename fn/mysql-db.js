@@ -174,7 +174,7 @@ exports.executeBooking = function(queries, numOfBookedSeatsRecord, numOfBookedCo
                                     reject(err);
                                 });
                             }
-                            console.log(queries[3])
+
                             bookingResults = bookingResults.concat(result);
 
                             connection.commit(function(err) {

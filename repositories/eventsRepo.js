@@ -6,10 +6,11 @@ exports.loadAll = function() {
 }
 
 exports.loadHotEvent = function(size, skip) {
-    var sql = `SELECT DISTINCT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
+    var sql = `SELECT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
         sl.number_of_tickets
         FROM events as ev
         INNER JOIN sales as sl ON sl.event_id = ev.id
+        GROUP BY ev.id
         ORDER BY sl.number_of_tickets ASC
         LIMIT ${size} OFFSET ${skip}`;
     return db.load(sql);
