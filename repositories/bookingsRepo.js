@@ -8,7 +8,7 @@ exports.loadSingle = function(bookingID, accountID) {
         l.name as room,
 
         m.name as movieName, m.min_age as minAge, m.running_time as runningTime, m.genre,
-        c.name as cinemaName, c.icon_url as cinemaIconURL, c.address,
+        c.name as cinemaName, c.icon_url as cinemaIconURL, c.address as cinemaAddress,
         ms.release_date as movieReleaseDate, ms.time as movieTime, ms.type as movieType,
 
         ev.name as eventName, ev.category as eventCategory, ev.img_url as eventImgURL, ev.release_date as eventReleaseDate, ev.time as eventTime, ev.organizer, ev.description,
