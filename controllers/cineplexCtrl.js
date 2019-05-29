@@ -16,7 +16,11 @@ router.get('/', (req, res) => {
                             if (rows[i].cineplexID == rows[j].cineplexID) {
                                 cinemas.push({ id: rows[j].cinemaID,
                                                cinemaName: rows[j].cinemaName,
+                                               viewURL: rows[j].viewURL,
+                                               phone: rows[j].phone,
                                                address: rows[j].address,
+                                               operatingHours: rows[j].operatingHours,
+                                               introduce: rows[j].introduce,
                                                avgPoint: rows[j].avgPoint });
                             }
                         }
