@@ -31,7 +31,7 @@ router.get('/:id/showing/:date', (req, res) => {
                                         initialRelease: rows[i].initialRelease,
                                         description: rows[i].description,
                                         director: rows[i].director,
-                                        cast = rows[i].cast,
+                                        cast: rows[i].cast,
                                         showTimes };
                         arr.push(cinemas);
                         flag = rows[i].movieID;
