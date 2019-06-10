@@ -15,7 +15,7 @@ exports.loadSingle = function(id) {
 }
 
 exports.loadByDay = function(movieID, date) {
-    var sql = `SELECT m.id as movieID, m.name as movieName, m.img_url as imgURL, m.score, m.min_age as minAge, m.running_time as runningTime, m.genre, m.initial_release as initialRelease,
+    var sql = `SELECT m.id as movieID, m.name as movieName, m.img_url as imgURL, m.score, m.desciption, m.director, m.cast, m.min_age as minAge, m.running_time as runningTime, m.genre, m.initial_release as initialRelease,
         ms.id as movieShowingID, ms.price, ms.time, ms.type,
         l.id as locationID, l.name as locationName, l.total_seats as totalSeats
         FROM cinemas as c

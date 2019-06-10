@@ -29,6 +29,9 @@ router.get('/:id/showing/:date', (req, res) => {
                                         runningTime: rows[i].runningTime,
                                         genre: rows[i].genre,
                                         initialRelease: rows[i].initialRelease,
+                                        description: rows[i].description,
+                                        director: rows[i].director,
+                                        cast = rows[i].cast,
                                         showTimes };
                         arr.push(cinemas);
                         flag = rows[i].movieID;
