@@ -21,8 +21,8 @@ router.get('/:id/showing/:date', (req, res) => {
                                 showTimes.push({id: rows[j].movieShowingID, type: rows[j].type, price: rows[j].price, time: rows[j].time, location_id: rows[j].locationID, location_name: rows[j].locationName, totalSeats: rows[j].totalSeats });
                             }
                         }
-                        var cinemas = { movieID: rows[i].movieID,
-                                        movieName: rows[i].movieName,
+                        var cinemas = { id: rows[i].movieID,
+                                        name: rows[i].movieName,
                                         imgURL: rows[i].imgURL,
                                         score: rows[i].score,
                                         minAge: rows[i].minAge,
