@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
                         var cinemas = [];
                         for (var j = 0; j < rows.length; j++) {
                             if (rows[i].cineplexID == rows[j].cineplexID) {
-                                cinemas.push({ id: rows[j].cinemaID,
+                                cinemas.push({ cinemaID: rows[j].cinemaID,
                                                cinemaName: rows[j].cinemaName,
                                                viewURL: rows[j].viewURL,
                                                phone: rows[j].phone,
