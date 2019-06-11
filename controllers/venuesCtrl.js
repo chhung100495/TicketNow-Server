@@ -65,6 +65,7 @@ router.get('/:id/sale/:datetime', (req, res) => {
                                         img_url: rows[i].img_url,
                                         releaseDate: rows[i].releaseDate,
                                         organizer: rows[i].organizer,
+                                        time: rows[i].time,
                                         description: rows[i].description,
                                         stands };
                         arr.push(event);
