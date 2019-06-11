@@ -27,6 +27,6 @@ exports.loadByDatetime = function(venueID, datetime) {
         INNER JOIN events as ev ON ev.id = sl.event_id
         INNER JOIN blocks as b ON b.id = sl.block_id
         INNER JOIN units as u ON u.id = sl.unit_id
-        WHERE v.id = '${venueID}' AND sl.number_of_tickets > 0 AND (sl.start_date_sale <= '${datetime}' AND sl.end_date_sale >= '${datetime}')`;
+        WHERE v.id = '${venueID}' AND sl.number_of_tickets > 0 AND (DATE(sl.start_date_sale) <= '${datetime}' AND DATE(sl.end_date_sale) >= '${datetime}')`;
     return db.load(sql);
 }
