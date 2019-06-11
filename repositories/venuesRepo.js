@@ -19,7 +19,7 @@ exports.loadSingle = function(id) {
 
 exports.loadByDatetime = function(venueID, datetime) {
     var sql = `SELECT sl.id as saleID, sl.price, sl.number_of_tickets as numberOfTickets,
-        ev.time,
+        ev.time, ev.name as eventName, ev.release_date as releaseDate, ev.organizer, ev.description
         b.name as blockName,
         u.id as unitID, u.name as unitName, u.icon_url as iconURL
         FROM venues as v
