@@ -58,7 +58,7 @@ router.get('/:id/sale/:datetime', (req, res) => {
                                 stands.push({saleID: rows[j].saleID, price: rows[j].price, time: rows[j].time, numberOfTickets: rows[j].numberOfTickets, blockName: rows[j].blockName });
                             }
                         }
-                        var event = {   unitID: rows[i].unitID,
+                        var event = {   id: rows[i].eventID,
                                         unitName: rows[i].unitName,
                                         iconURL: rows[i].iconURL,
                                         name: rows[i].eventName,
