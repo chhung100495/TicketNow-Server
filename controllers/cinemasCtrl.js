@@ -24,6 +24,7 @@ router.get('/:id/showing/:date', (req, res) => {
                         var cinemas = { id: rows[i].movieID,
                                         name: rows[i].movieName,
                                         imgURL: rows[i].imgURL,
+                                        trailerURL: rows[i].trailerURL,
                                         score: rows[i].score,
                                         minAge: rows[i].minAge,
                                         runningTime: rows[i].runningTime,

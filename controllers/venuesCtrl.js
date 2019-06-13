@@ -63,6 +63,7 @@ router.get('/:id/sale/:datetime', (req, res) => {
                                         iconURL: rows[i].iconURL,
                                         name: rows[i].eventName,
                                         img_url: rows[i].img_url,
+                                        video_url: rows[i].video_url,
                                         releaseDate: rows[i].releaseDate,
                                         organizer: rows[i].organizer,
                                         time: rows[i].time,
