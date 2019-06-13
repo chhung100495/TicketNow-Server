@@ -6,7 +6,7 @@ exports.loadAll = function() {
 }
 
 exports.loadHotEvent = function(size, skip) {
-    var sql = `SELECT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
+    var sql = `SELECT ev.id, ev.name, ev.img_url, ev.video_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description,
         sl.number_of_tickets
         FROM events as ev
         INNER JOIN sales as sl ON sl.event_id = ev.id
@@ -17,7 +17,7 @@ exports.loadHotEvent = function(size, skip) {
 }
 
 exports.loadCommingSoon = function(size, skip) {
-    var sql = `SELECT ev.id, ev.name, ev.img_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description
+    var sql = `SELECT ev.id, ev.name, ev.img_url, ev.video_url, ev.release_date as releaseDate, ev.time, ev.organizer, ev.category, ev.description
         FROM events as ev
         WHERE CURDATE() < ev.release_date
         LIMIT ${size} OFFSET ${skip}`;
